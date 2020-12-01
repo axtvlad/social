@@ -1,0 +1,20 @@
+.App {
+    text-align: center;
+}
+
+.app-wrapper {
+    display: grid;
+
+    grid-template-areas: "h h h" "n c c";
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 2fr 10fr;
+    grid-gap: 5px;
+    width: 1200px;
+
+    margin: 0 auto;
+}
+
+.app-wrapper-content {
+    background-color: wheat;
+    grid-area: c;
+}
