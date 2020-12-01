@@ -28,11 +28,11 @@ const ProfileStatus = ({profileStatus, updateProfileStatus}) => {
         <div>
             {!editMode &&
             <div>
-                <span id={'profileStatus'}
-                    onDoubleClick={editModeOn}
-                >
-                    {profileStatus || '----'}
-                </span>
+                <b>
+                    <span id={'profileStatus'} onDoubleClick={editModeOn}>
+                        {profileStatus || '----'}
+                    </span>
+                </b>
             </div>
             }
             {editMode &&

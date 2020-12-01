@@ -16,7 +16,7 @@ export const getCurrentPageSelector = (state) => {
     return state.usersPage.currentPage;
 };
 
-export const getIsFetchingSelector = (state) => {
+export const getUsersIsFetchingSelector = (state) => {
     return state.usersPage.isFetching;
 };
 

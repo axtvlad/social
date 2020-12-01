@@ -7,7 +7,7 @@ import {compose} from "redux";
 import {
     getCurrentPageSelector,
     getFollowingInProgressSelector,
-    getIsFetchingSelector,
+    getUsersIsFetchingSelector,
     getPageSizeSelectorSelector,
     getTotalUsersCountSelector,
     getUsersSelector
@@ -67,7 +67,7 @@ let mapStateToProps = (state) => {
         pageSize: getPageSizeSelectorSelector(state),
         totalUsersCount: getTotalUsersCountSelector(state),
         currentPage: getCurrentPageSelector(state),
-        isFetching: getIsFetchingSelector(state),
+        isFetching: getUsersIsFetchingSelector(state),
         followingInProgress: getFollowingInProgressSelector(state)
     }
 }

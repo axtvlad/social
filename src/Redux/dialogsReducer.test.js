@@ -18,14 +18,14 @@ let initial = {
     ],
 }
 
-it('After add new msg arr length increment ', () => {
+it('After add new msg arr length increment', () => {
     let action = sendMessage('New msg');
     let newState = dialogsReducer(initial, action);
 
     expect(newState.messages.length).toBe(5);
 });
 
-it('New msg is correct ', () => {
+it('New msg is correct', () => {
     let action = sendMessage('New msg');
     let newState = dialogsReducer(initial, action);
 

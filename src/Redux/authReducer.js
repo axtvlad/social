@@ -38,6 +38,12 @@ export const me = () => async (dispatch) => {
         let {id, email, login} = data.data;
 
         dispatch(setAuthUserData(id, email, login, true))
+    } else {
+        if (data.messages.length) {
+            alert(data.messages[0]);
+        } else {
+            alert('unknown error');
+        }
     }
 }
 
@@ -60,6 +66,12 @@ export const logout = () => async (dispatch) => {
 
     if (data.resultCode === 0) {
         dispatch(setAuthUserData(null, null, null, false));
+    } else {
+        if (data.messages.length) {
+            alert(data.messages[0]);
+        } else {
+            alert('unknown error');
+        }
     }
 }
 

@@ -1,28 +1,47 @@
-import React from 'react';
+import React, {useState} from 'react';
 import classes from './ProfileInfo.module.css';
-import Preloader from "../../common/Preloader/Preloader";
 import undefinedAva from '../../../media/user.png'
-import ProfileStatus from "./ProfileStatus";
+import ProfileStatus from "./ProfileStatus/ProfileStatus";
+import ProfileDataForm from "./ProfileData/ProfileDataForm";
+import ProfileData from "./ProfileData/ProfileData";
 
-const ProfileInfo = ({profile, updateProfileStatus, profileStatus}) => {
-    if (!profile) {
-        return (
-            <Preloader/>
-        )
+const ProfileInfo = ({profile, updateProfileStatus, profileStatus, isOwner, uploadPhoto, saveProfileData}) => {
+    let [editMode, setEditMode] = useState(false);
+
+    const onPhotoSelected = (e) => {
+        let files = e.target.files;
+
+        if (files) {
+            uploadPhoto(files[0]);
+        }
     }
 
-    const getUserAvatar = () => {
-        if (profile.photos.large) {
-            return profile.photos.large;
-        } else {
-            return undefinedAva;
-        }
-    };
+    const editModeOn = () => {
+        setEditMode(true);
+    }
+
+    const onSubmit = (formData) => {
+        setEditMode(false);
+
+        saveProfileData(formData)
+    }
 
     return (
         <div>
             <div className={classes.descriptionBloc}>
-                <img src={getUserAvatar()} alt="avatar" className={classes.avatar}/>
+                <img src={profile.photos.large || undefinedAva} alt="avatar" className={classes.avatar}/>
+
+                {isOwner && <input type={'file'} onChange={onPhotoSelected}/>}
+
+                {isOwner && editMode
+                    ? <ProfileDataForm onSubmit={onSubmit} profile={profile}/>
+                    : <ProfileData
+                        editModeOn={editModeOn}
+                        profile={profile}
+                        isOwner={isOwner}
+                    />
+                }
+
                 <ProfileStatus profileStatus={profileStatus} updateProfileStatus={updateProfileStatus}/>
             </div>
         </div>

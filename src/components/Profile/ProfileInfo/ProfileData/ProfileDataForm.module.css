@@ -1,0 +1,12 @@
+.gridFields div {
+    display: grid;
+    width: 200px;
+}
+
+.gridFields div.checkbox {
+    display: flex;
+}
+
+span {
+    font-weight: bold;
+}

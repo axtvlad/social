@@ -51,5 +51,21 @@ export const profileAPI = {
             status: status
         })
             .then(response => response)
+    },
+    uploadPhoto(photo) {
+        let formData = new FormData();
+
+        formData.append('image', photo);
+
+        return api.put(`profile/photo`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+            .then(response => response.data)
+    },
+    saveProfile(profileData) {
+        return api.put(`profile`, profileData)
+            .then(response => response.data)
     }
 }

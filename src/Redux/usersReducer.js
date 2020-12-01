@@ -144,11 +144,11 @@ export const getUsersList = (pageSize, page) => async (dispatch) => {
 }
 
 export const follow = (userId) => async (dispatch) => {
-    followUnfollowFlow(dispatch, userId, usersAPI.follow, followSuccess);
+    await followUnfollowFlow(dispatch, userId, usersAPI.follow, followSuccess);
 }
 
 export const unfollow = (userId) => async (dispatch) => {
-    followUnfollowFlow(dispatch, userId, usersAPI.unfollow, unfollowSuccess);
+    await followUnfollowFlow(dispatch, userId, usersAPI.unfollow, unfollowSuccess);
 }
 
 export default usersReducer;
