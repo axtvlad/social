@@ -17,14 +17,12 @@ const SET_FOLLOWING_IN_PROGRESS = 'social/users/SET_FOLLOWING_IN_PROGRESS';
 /**
  * INITIAL
  *
- * @typedef initial
- * @type {object}
- * @property {[object]}     users                   [].
- * @property {number}       pageSize                [default: 5]        Con be (number). Users count per page
- * @property {number}       totalUsersCount         [default: 0]        Con be (number). Total users count in db
- * @property {number}       currentPage             [default: 1]        Con be (number). Which page is showing
- * @property {array}        followingInProgress     [default: []]       Con be (empty array) or (filled array). This array includes users which need do following or unfollowing
- * @property {boolean}      isFetching              [default: false]    Con be (true) or (false). If users is pending then (true) else (false)
+ * users - [default: []] - Can be (empty array) or (filled array). Array of users
+ * pageSize - [default: 5] - Con be (number). Users count per page
+ * totalUsersCount - [default: 0] - Con be (number). Total users count in db
+ * currentPage - [default: 1] - Con be (number). Which page is showing
+ * followingInProgress - [default: []] - Con be (empty array) or (filled array). This array includes users which need do following or unfollowing
+ * isFetching - [default: false] - Con be (true) or (false). If users is pending then (true) else (false)
  */
 const initial = {
     users: [],

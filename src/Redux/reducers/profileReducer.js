@@ -15,12 +15,10 @@ const UPDATE_PHOTO_SUCCESS = 'social/profile/UPDATE_PHOTO_SUCCESS';
 /**
  * INITIAL
  *
- * @typedef initial
- * @type {object}
- * @property {[object]}     posts           [].
- * @property {null}         profile         [default: null]     Con be (null) or (object). If profile is pended then (object) else (null)
- * @property {boolean}      isFetching      [default: false]    Con be (false) or (true). If profile is fetching then (true) else (false)
- * @property {string}       profileStatus   [default: '']       Con be (empty string) or (filled string). If profile status is pended then (profileStatus) else (empty string)
+ * posts - [] - posts array
+ * profile - [default: null] - Con be (null) or (object). If profile is pended then (object) else (null)
+ * isFetching - [default: false] - Con be (false) or (true). If profile is fetching then (true) else (false)
+ * profileStatus - [default: ''] - Con be (empty string) or (filled string). If profile status is pended then (profileStatus) else (empty string)
  */
 const initial = {
     posts: [
@@ -148,14 +146,18 @@ export const getProfileStatus = (userId) => async (dispatch) => {
 }
 
 export const updateProfileStatus = (profileStatus) => async (dispatch) => {
-    const response = await profileAPI.updateProfileStatus(profileStatus);
+    try {
+        const response = await profileAPI.updateProfileStatus(profileStatus);
 
-    if (response.data.resultCode === 0) {
-        dispatch(setProfileStatus(profileStatus))
-    } else {
-        if (response.data.messages.length) {
-            alert(response.data.messages[0]);
+        if (response.data.resultCode === 0) {
+            dispatch(setProfileStatus(profileStatus))
+        } else {
+            if (response.data.messages.length) {
+                alert(response.data.messages[0]);
+            }
         }
+    } catch (error) {
+        alert(error.message)
     }
 }
 

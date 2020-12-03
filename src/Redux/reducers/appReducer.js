@@ -10,12 +10,12 @@ const INITIALIZED_SUCCESS = 'social/app/INITIALIZED_SUCCESS';
 /**
  * INITIAL
  *
- * @typedef initial
- * @type {object}
- * @property {boolean}      initialized     [default: false]    Con be (false) or (true). If app is initialised then (true) else (false)
+ * initialized - [default: false] - Con be (false) or (true). If app is initialised then (true) else (false)
+ * globalError - [default: null] - Con be (null) or (string). If app have some errors then (string) else (null)
  */
 const initial = {
     initialized: false,
+    globalError: null,
 }
 
 export const appReducer = (state = initial, action) => {

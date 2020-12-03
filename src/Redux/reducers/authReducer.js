@@ -11,14 +11,11 @@ const GET_CAPTCHA_URL_SUCCESS = 'social/auth/GET_CAPTCHA_URL_SUCCESS';
 /**
  * INITIAL
  *
- * @typedef initial
- * @type {object}
- *
- * @property {boolean}      isAuth      [default: false]    Can be (true) or (false). If user is not authorized then (false) else (true)
- * @property {null}         captchaUrl  [default: null]     Con be (null) or (string). If captcha is not required then (null) else (string)
- * @property {null}         login       [default: null]     Con be (null) or (string). If user is not authorized then (null) else (string)
- * @property {null}         userId      [default: null]     Con be (null) or (string). If user is not authorized then (null) else (string)
- * @property {null}         email       [default: null]     Con be (null) or (string). If user is not authorized then (null) else (string)
+ * isAuth - [default: false] - Can be (true) or (false). If user is not authorized then (false) else (true)
+ * captchaUrl - [default: null] - Con be (null) or (string). If captcha is not required then (null) else (string)
+ * login - [default: null] - Con be (null) or (string). If user is not authorized then (null) else (string)
+ * userId - [default: null] - Con be (null) or (string). If user is not authorized then (null) else (string)
+ * email - [default: null] - Con be (null) or (string). If user is not authorized then (null) else (string)
  */
 const initial = {
     userId: null,
@@ -33,10 +30,10 @@ const initial = {
  *
  * Reducer takes a current (state) from store and (action) which action creator send him
  *
- * @param {object}      state     [default: initial]     Includes current state
- * @param {object}      action    []                     Includes action (type) and data
+ * state - [default: initial] - Includes current state
+ * action - [] - Includes action (type) and data
  *
- * @returns {{isAuth, captchaUrl, login, userId, email}}
+ * return new State copy
  */
 export const authReducer = (state = initial, action) => {
     switch (action.type) {

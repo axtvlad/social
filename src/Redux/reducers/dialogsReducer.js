@@ -8,10 +8,8 @@ const SEND_MESSAGE = 'social/dialogs/SEND_MESSAGE';
 /**
  * INITIAL
  *
- * @typedef initial
- * @type {object}
- * @property {[object]}     dialogs     [default: [object]]
- * @property {[object]}     messages    [default: [object]]
+ * dialogs - [default: [object]] - dialogs array
+ * messages - [default: [object]] - messages array
  */
 const initial = {
     dialogs: [

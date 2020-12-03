@@ -20,13 +20,13 @@ const UsersContainer = React.lazy(() => import ("./components/Users/UsersContain
 
 class App extends React.Component {
     componentDidMount() {
-        let {initializeApp} = this.props
+        const {initializeApp} = this.props
 
         initializeApp();
     }
 
     render() {
-        let {initialized} = this.props;
+        const {initialized} = this.props;
 
         if (!initialized) {
             return <Preloader/>
