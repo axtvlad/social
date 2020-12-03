@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import {follow, getUsersList, unfollow} from "../../Redux/usersReducer";
+import {follow, getUsersList, unfollow} from "../../Redux/reducers/usersReducer";
 import Users from "./Users";
 import React from 'react';
 import Preloader from "../common/Preloader/Preloader";
@@ -11,24 +11,24 @@ import {
     getPageSizeSelectorSelector,
     getTotalUsersCountSelector,
     getUsersSelector
-} from "../../Redux/usersSelectors";
+} from "../../Redux/selectors/usersSelectors";
 import Paginator from "../common/Paginator/Paginator";
 
 class UsersContainer extends React.Component {
     componentDidMount() {
-        let {getUsersList, pageSize, currentPage} = this.props;
+        const {getUsersList, pageSize, currentPage} = this.props;
 
         getUsersList(pageSize, currentPage);
     }
 
     changePage = (pageNumber) => {
-        let {getUsersList, pageSize} = this.props;
+        const {getUsersList, pageSize} = this.props;
 
         getUsersList(pageSize, pageNumber);
     }
 
     render() {
-        let {
+        const {
             isFetching,
             totalUsersCount,
             pageSize,
@@ -61,7 +61,7 @@ class UsersContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         users: getUsersSelector(state),
         pageSize: getPageSizeSelectorSelector(state),

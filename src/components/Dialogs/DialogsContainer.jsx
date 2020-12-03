@@ -1,11 +1,11 @@
-import {sendMessage} from "../../Redux/dialogsReducer";
+import {sendMessage} from "../../Redux/reducers/dialogsReducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {withAuthRedirect} from "../../hoc/WithAuthRedirect";
 import {compose} from "redux";
-import {getDialogs, getMessages} from "../../Redux/dialogsSelectors";
+import {getDialogs, getMessages} from "../../Redux/selectors/dialogsSelectors";
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         dialogs: getDialogs(state),
         messages: getMessages(state)

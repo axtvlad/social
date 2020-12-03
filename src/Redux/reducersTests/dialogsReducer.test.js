@@ -1,6 +1,6 @@
-import dialogsReducer, {sendMessage} from "./dialogsReducer";
+import {dialogsReducer, sendMessage} from "../reducers/dialogsReducer";
 
-let initial = {
+const initial = {
     messages: [
         {
             id: 1,
@@ -19,15 +19,15 @@ let initial = {
 }
 
 it('After add new msg arr length increment', () => {
-    let action = sendMessage('New msg');
-    let newState = dialogsReducer(initial, action);
+    const action = sendMessage('New msg');
+    const newState = dialogsReducer(initial, action);
 
     expect(newState.messages.length).toBe(5);
 });
 
 it('New msg is correct', () => {
-    let action = sendMessage('New msg');
-    let newState = dialogsReducer(initial, action);
+    const action = sendMessage('New msg');
+    const newState = dialogsReducer(initial, action);
 
     expect(newState.messages[4].message).toBe('New msg');
 });

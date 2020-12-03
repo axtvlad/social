@@ -1,6 +1,11 @@
-import {usersAPI} from "../api/api";
-import {updateObjectInArray} from "../utils/helpers/objectHelpers";
+import {usersAPI} from "../../api/api";
+import {updateObjectInArray} from "../../utils/helpers/objectHelpers";
 
+/**
+ * CONSTANTS
+ *
+ * Constants for action creators
+ */
 const FOLLOW = 'social/users/FOLLOW';
 const UNFOLLOW = 'social/users/UNFOLLOW';
 const SET_USERS = 'social/users/SET_USERS';
@@ -9,7 +14,19 @@ const SET_CURRENT_PAGE = 'social/users/SET_CURRENT_PAGE';
 const SET_IS_FETCHING = 'social/users/SET_IS_FETCHING';
 const SET_FOLLOWING_IN_PROGRESS = 'social/users/SET_FOLLOWING_IN_PROGRESS';
 
-let initial = {
+/**
+ * INITIAL
+ *
+ * @typedef initial
+ * @type {object}
+ * @property {[object]}     users                   [].
+ * @property {number}       pageSize                [default: 5]        Con be (number). Users count per page
+ * @property {number}       totalUsersCount         [default: 0]        Con be (number). Total users count in db
+ * @property {number}       currentPage             [default: 1]        Con be (number). Which page is showing
+ * @property {array}        followingInProgress     [default: []]       Con be (empty array) or (filled array). This array includes users which need do following or unfollowing
+ * @property {boolean}      isFetching              [default: false]    Con be (true) or (false). If users is pending then (true) else (false)
+ */
+const initial = {
     users: [],
     pageSize: 5,
     totalUsersCount: 0,
@@ -70,49 +87,49 @@ export const usersReducer = (state = initial, action) => {
     }
 }
 
-export const followSuccess = (userId) => (
+const followSuccess = (userId) => (
     {
         type: FOLLOW,
         userId: userId
     }
 )
 
-export const unfollowSuccess = (userId) => (
+const unfollowSuccess = (userId) => (
     {
         type: UNFOLLOW,
         userId: userId
     }
 )
 
-export const setUsers = (users) => (
+const setUsers = (users) => (
     {
         type: SET_USERS,
         users: users
     }
 )
 
-export const setTotalUsersCount = (totalUsersCount) => (
+const setTotalUsersCount = (totalUsersCount) => (
     {
         type: SET_TOTAL_USERS_COUNT,
         totalUsersCount: totalUsersCount
     }
 )
 
-export const setCurrentPage = (currentPage) => (
+const setCurrentPage = (currentPage) => (
     {
         type: SET_CURRENT_PAGE,
         currentPage: currentPage
     }
 )
 
-export const setIsFetching = (isFetching) => (
+const setIsFetching = (isFetching) => (
     {
         type: SET_IS_FETCHING,
         isFetching: isFetching
     }
 )
 
-export const setFollowingInProgress = (isFetching, userId) => (
+const setFollowingInProgress = (isFetching, userId) => (
     {
         type: SET_FOLLOWING_IN_PROGRESS,
         isFetching: isFetching,
@@ -123,7 +140,7 @@ export const setFollowingInProgress = (isFetching, userId) => (
 const followUnfollowFlow = async (dispatch, userId, apiMethod, actionCreator) => {
     dispatch(setFollowingInProgress(true, userId));
 
-    let data = await apiMethod(userId);
+    const data = await apiMethod(userId);
 
     if (data.resultCode === 0) {
         dispatch(actionCreator(userId))
@@ -136,7 +153,7 @@ export const getUsersList = (pageSize, page) => async (dispatch) => {
     dispatch(setIsFetching(true));
     dispatch(setCurrentPage(page));
 
-    let data = await usersAPI.getUsers(pageSize, page);
+    const data = await usersAPI.getUsers(pageSize, page);
 
     dispatch(setUsers(data.items));
     dispatch(setTotalUsersCount(data.totalCount));
@@ -150,5 +167,3 @@ export const follow = (userId) => async (dispatch) => {
 export const unfollow = (userId) => async (dispatch) => {
     await followUnfollowFlow(dispatch, userId, usersAPI.unfollow, unfollowSuccess);
 }
-
-export default usersReducer;

@@ -32,7 +32,7 @@ const AddPostForm = ({onSubmit}) => {
 }
 
 const MyPosts = React.memo(({posts, profile, addPost}) => {
-    let postsList = [...posts]
+    const postsList = [...posts]
         .reverse()
         .map(item =>
             <Post

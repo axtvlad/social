@@ -1,6 +1,19 @@
+/**
+ * CONSTANTS
+ *
+ * Constants for action creators
+ */
 const SEND_MESSAGE = 'social/dialogs/SEND_MESSAGE';
 
-let initial = {
+/**
+ * INITIAL
+ *
+ * @typedef initial
+ * @type {object}
+ * @property {[object]}     dialogs     [default: [object]]
+ * @property {[object]}     messages    [default: [object]]
+ */
+const initial = {
     dialogs: [
         {
             id: 1,
@@ -8,19 +21,7 @@ let initial = {
         }, {
             id: 2,
             name: 'Andrew'
-        }, {
-            id: 3,
-            name: 'Sveta'
-        }, {
-            id: 4,
-            name: 'Sasha'
-        }, {
-            id: 5,
-            name: 'Viktor'
-        }, {
-            id: 6,
-            name: 'Valeriy'
-        },
+        }
     ],
     messages: [
         {
@@ -62,5 +63,3 @@ export const sendMessage = (messageText) => (
         messageText: messageText
     }
 )
-
-export default dialogsReducer;

@@ -3,17 +3,17 @@ import classes from "./Paginator.module.css";
 import cn from 'classnames';
 
 const Paginator = ({totalItemsCount, pageSize, currentPage, changePage, portionSize = 5}) => {
-    let pageCount = Math.ceil(totalItemsCount / pageSize);
-    let pages = [];
+    const pageCount = Math.ceil(totalItemsCount / pageSize);
+    const pages = [];
 
     for (let i = 1; i <= pageCount; i++) {
         pages.push(i)
     }
 
-    let portionCount = Math.ceil(pageCount / portionSize);
-    let [portionNumber, setPortionNumber] = useState(1);
-    let leftPositionPageNumber = (portionNumber - 1) * portionSize + 1;
-    let rightPortionPageNumber = portionNumber * portionSize;
+    const portionCount = Math.ceil(pageCount / portionSize);
+    const [portionNumber, setPortionNumber] = useState(1);
+    const leftPositionPageNumber = (portionNumber - 1) * portionSize + 1;
+    const rightPortionPageNumber = portionNumber * portionSize;
 
     const prevPages = () => {
         setPortionNumber(portionNumber - 1);
@@ -22,7 +22,6 @@ const Paginator = ({totalItemsCount, pageSize, currentPage, changePage, portionS
     const nextPages = () => {
         setPortionNumber(portionNumber + 1);
     }
-
 
     return (
         <div className={classes.paginator}>

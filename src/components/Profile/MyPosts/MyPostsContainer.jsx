@@ -1,9 +1,9 @@
-import {addPost} from "../../../Redux/profileReducer";
+import {addPost} from "../../../Redux/reducers/profileReducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
-import {getPostsSelector, getProfileSelector} from "../../../Redux/profileSelectors";
+import {getPostsSelector, getProfileSelector} from "../../../Redux/selectors/profileSelectors";
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         posts: getPostsSelector(state),
         profile: getProfileSelector(state)

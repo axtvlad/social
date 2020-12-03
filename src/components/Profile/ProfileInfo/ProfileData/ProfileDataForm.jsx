@@ -4,7 +4,7 @@ import React from "react";
 import classes from './ProfileDataForm.module.css'
 
 const ProfileDataForm = ({onSubmit, profile}) => {
-    let {fullName, lookingForAJob, lookingForAJobDescription, aboutMe, contacts} = profile;
+    const {fullName, lookingForAJob, lookingForAJobDescription, aboutMe, contacts} = profile;
 
     return (
         <Form onSubmit={onSubmit}>

@@ -7,12 +7,12 @@ import {
     saveProfileData,
     updateProfileStatus,
     uploadPhoto
-} from "../../Redux/profileReducer";
+} from "../../Redux/reducers/profileReducer";
 import {withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/WithAuthRedirect";
 import {compose} from "redux";
-import {getAuthorizedUserIdSelector, getIsAuthSelector, getUserIdSelector} from "../../Redux/authSelectors";
-import {getProfileSelector, getProfileStatusSelector} from "../../Redux/profileSelectors";
+import {getIsAuthSelector, getUserIdSelector} from "../../Redux/selectors/authSelectors";
+import {getProfileSelector, getProfileStatusSelector} from "../../Redux/selectors/profileSelectors";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
@@ -20,7 +20,7 @@ class ProfileContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        let {match} = this.props;
+        const {match} = this.props;
 
         if (match.params.userId !== prevProps.match.params.userId) {
             this.refreshProfile();
@@ -28,7 +28,8 @@ class ProfileContainer extends React.Component {
     }
 
     refreshProfile = () => {
-        let {match, currentUserId, history, getProfile, getProfileStatus} = this.props;
+        const {match, currentUserId, history, getProfile, getProfileStatus} = this.props;
+
         let userId = match.params.userId;
 
         if (!userId) {
@@ -44,7 +45,7 @@ class ProfileContainer extends React.Component {
     }
 
     render() {
-        let {profile, updateProfileStatus, profileStatus, match, uploadPhoto, saveProfileData} = this.props;
+        const {profile, updateProfileStatus, profileStatus, match, uploadPhoto, saveProfileData} = this.props;
 
         return (
             <Profile
@@ -59,13 +60,12 @@ class ProfileContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         profile: getProfileSelector(state),
         currentUserId: getUserIdSelector(state),
         profileStatus: getProfileStatusSelector(state),
         isAuth: getIsAuthSelector(state),
-        authorizedUserId: getAuthorizedUserIdSelector(state)
     }
 }
 

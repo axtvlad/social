@@ -1,8 +1,20 @@
 import {me} from "./authReducer";
 
+/**
+ * CONSTANTS
+ *
+ * Constants for action creators
+ */
 const INITIALIZED_SUCCESS = 'social/app/INITIALIZED_SUCCESS';
 
-let initial = {
+/**
+ * INITIAL
+ *
+ * @typedef initial
+ * @type {object}
+ * @property {boolean}      initialized     [default: false]    Con be (false) or (true). If app is initialised then (true) else (false)
+ */
+const initial = {
     initialized: false,
 }
 
@@ -20,19 +32,17 @@ export const appReducer = (state = initial, action) => {
     }
 }
 
-export const initializedSuccess = () => (
+const initializedSuccess = () => (
     {
         type: INITIALIZED_SUCCESS,
     }
 )
 
 export const initializeApp = () => (dispatch) => {
-    let promise = dispatch(me());
+    const promise = dispatch(me());
 
     Promise.all([promise])
         .then(() => {
             dispatch(initializedSuccess());
         })
 }
-
-export default appReducer;

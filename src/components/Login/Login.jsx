@@ -3,11 +3,11 @@ import {Field, Form} from 'react-final-form'
 import {Input} from "../common/FormsControls/FormsControls";
 import {composeValidators, maxLength, required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
-import {login} from "../../Redux/authReducer";
+import {login} from "../../Redux/reducers/authReducer";
 import {Redirect} from "react-router-dom";
-import {getIsAuthSelector} from "../../Redux/authSelectors";
+import {getIsAuthSelector} from "../../Redux/selectors/authSelectors";
 
-const LoginForm = ({onSubmit}) => {
+const LoginForm = ({onSubmit, captchaUrl}) => {
     return (
         <Form onSubmit={onSubmit}>
             {(props) => {
@@ -33,6 +33,14 @@ const LoginForm = ({onSubmit}) => {
                         <div>
                             <Field name={'rememberMe'} type={'checkbox'} component={Input}/> remember me
                         </div>
+                        {captchaUrl &&
+                        <div>
+                            <img src={captchaUrl} alt="captcha"/>
+                            <div>
+                                <Field name={'captcha'} type={'text'} component={'input'}/>
+                            </div>
+                        </div>
+                        }
                         <div>
                             <button>Login</button>
                         </div>
@@ -43,9 +51,9 @@ const LoginForm = ({onSubmit}) => {
     )
 }
 
-const Login = ({login, isAuth,}) => {
+const Login = ({login, isAuth, captchaUrl}) => {
     const onSubmit = (formData) => {
-        login(formData.email, formData.password, formData.rememberMe)
+        login(formData)
     }
 
     if (isAuth) {
@@ -55,14 +63,15 @@ const Login = ({login, isAuth,}) => {
     return (
         <div>
             <h1>LOGIN</h1>
-            <LoginForm onSubmit={onSubmit}/>
+            <LoginForm onSubmit={onSubmit} captchaUrl={captchaUrl}/>
         </div>
     )
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
-        isAuth: getIsAuthSelector(state)
+        isAuth: getIsAuthSelector(state),
+        captchaUrl: state.auth.captchaUrl
     }
 }
 

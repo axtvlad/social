@@ -28,8 +28,8 @@ export const authAPI = {
         return api.get(`auth/me`)
             .then(response => response.data);
     },
-    login(email, password, rememberMe = false) {
-        return api.post(`auth/login`, {email, password, rememberMe})
+    login(formData) {
+        return api.post(`auth/login`, formData)
             .then(response => response.data);
     },
     logout() {
@@ -53,7 +53,7 @@ export const profileAPI = {
             .then(response => response)
     },
     uploadPhoto(photo) {
-        let formData = new FormData();
+        const formData = new FormData();
 
         formData.append('image', photo);
 
@@ -67,5 +67,12 @@ export const profileAPI = {
     saveProfile(profileData) {
         return api.put(`profile`, profileData)
             .then(response => response.data)
+    }
+}
+
+export const securityAPI = {
+    getCaptchaUrl() {
+        return api.get(`security/get-captcha-url`)
+            .then(response => response)
     }
 }

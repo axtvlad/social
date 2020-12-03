@@ -8,8 +8,8 @@ import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 import {connect, Provider} from "react-redux";
 import {compose} from "redux";
-import {HashRouter, Route, withRouter} from "react-router-dom";
-import {initializeApp} from "./Redux/appReducer";
+import {HashRouter, Redirect, Route, withRouter} from "react-router-dom";
+import {initializeApp} from "./Redux/reducers/appReducer";
 import Preloader from "./components/common/Preloader/Preloader";
 import store from "./Redux/redux-store";
 import {withSuspense} from "./hoc/withSuspense";
@@ -37,6 +37,7 @@ class App extends React.Component {
                 <HeaderContainer/>
                 <Navbar/>
                 <div className={'app-wrapper-content'}>
+                    <Redirect exact from="/" to="/profile"/>
                     <Route render={withSuspense(DialogsContainer)} path={'/dialogs'}/>
                     <Route render={withSuspense(ProfileContainer)} path={'/profile/:userId?'}/>
                     <Route render={withSuspense(UsersContainer)} path={'/users'}/>

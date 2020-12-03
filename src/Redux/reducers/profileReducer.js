@@ -1,5 +1,10 @@
-import {profileAPI} from "../api/api";
+import {profileAPI} from "../../api/api";
 
+/**
+ * CONSTANTS
+ *
+ * Constants for action creators
+ */
 const ADD_POST = 'social/profile/ADD_POST';
 const DELETE_POST = 'social/profile/DELETE_POST';
 const SET_USER_PROFILE = 'social/profile/SET_USER_PROFILE';
@@ -7,7 +12,17 @@ const SET_IS_FETCHING = 'social/profile/SET_IS_FETCHING';
 const SET_PROFILE_STATUS = 'social/profile/SET_PROFILE_STATUS';
 const UPDATE_PHOTO_SUCCESS = 'social/profile/UPDATE_PHOTO_SUCCESS';
 
-let initial = {
+/**
+ * INITIAL
+ *
+ * @typedef initial
+ * @type {object}
+ * @property {[object]}     posts           [].
+ * @property {null}         profile         [default: null]     Con be (null) or (object). If profile is pended then (object) else (null)
+ * @property {boolean}      isFetching      [default: false]    Con be (false) or (true). If profile is fetching then (true) else (false)
+ * @property {string}       profileStatus   [default: '']       Con be (empty string) or (filled string). If profile status is pended then (profileStatus) else (empty string)
+ */
+const initial = {
     posts: [
         {
             id: 1,
@@ -24,7 +39,7 @@ let initial = {
     profileStatus: '',
 }
 
-const profileReducer = (state = initial, action) => {
+export const profileReducer = (state = initial, action) => {
     switch (action.type) {
         case ADD_POST: {
             return {
@@ -140,8 +155,6 @@ export const updateProfileStatus = (profileStatus) => async (dispatch) => {
     } else {
         if (response.data.messages.length) {
             alert(response.data.messages[0]);
-        } else {
-            alert('unknown error');
         }
     }
 }
@@ -154,15 +167,12 @@ export const uploadPhoto = (photo) => async (dispatch) => {
     } else {
         if (data.messages.length) {
             alert(data.messages[0]);
-        } else {
-            alert('unknown error');
         }
     }
 }
 
 export const saveProfileData = (profileData) => async (dispatch, getState) => {
     const userId = getState().auth.userId;
-
     const data = await profileAPI.saveProfile(profileData);
 
     if (data.resultCode === 0) {
@@ -170,10 +180,7 @@ export const saveProfileData = (profileData) => async (dispatch, getState) => {
     } else {
         if (data.messages.length) {
             alert(data.messages[0]);
-        } else {
-            alert('unknown error');
+            await Promise.reject(data.messages[0]);
         }
     }
 }
-
-export default profileReducer;

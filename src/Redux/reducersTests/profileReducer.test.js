@@ -1,6 +1,6 @@
-import profileReducer, {addPost, deletePost} from "./profileReducer";
+import {addPost, deletePost, profileReducer} from "../reducers/profileReducer";
 
-let initial = {
+const initial = {
     posts: [
         {
             id: 1,
@@ -15,43 +15,43 @@ let initial = {
 }
 
 it('New post should be added to posts', () => {
-    let action = addPost('Post testing');
-    let newState = profileReducer(initial, action);
+    const action = addPost('Post testing');
+    const newState = profileReducer(initial, action);
 
     expect(newState.posts.length).toBe(3);
 });
 
 it('Id of new post should be 3', () => {
-    let action = addPost('Post testing');
-    let newState = profileReducer(initial, action);
+    const action = addPost('Post testing');
+    const newState = profileReducer(initial, action);
 
     expect(newState.posts[2].id).toBe(3);
 });
 
 it('Message of new post should be correct', () => {
-    let action = addPost('Post testing');
-    let newState = profileReducer(initial, action);
+    const action = addPost('Post testing');
+    const newState = profileReducer(initial, action);
 
     expect(newState.posts[2].message).toBe('Post testing');
 });
 
 it('Likes of new post should be 0', () => {
-    let action = addPost('Post testing');
-    let newState = profileReducer(initial, action);
+    const action = addPost('Post testing');
+    const newState = profileReducer(initial, action);
 
     expect(newState.posts[2].likes).toBe(0);
 });
 
 it('After deleting length of posts should be decrement', () => {
-    let action = deletePost(1);
-    let newState = profileReducer(initial, action);
+    const action = deletePost(1);
+    const newState = profileReducer(initial, action);
 
     expect(newState.posts.length).toBe(1);
 });
 
 it('Length of posts should not be changed if incorrect post id', () => {
-    let action = deletePost(100);
-    let newState = profileReducer(initial, action);
+    const action = deletePost(100);
+    const newState = profileReducer(initial, action);
 
     expect(newState.posts.length).toBe(2);
 });

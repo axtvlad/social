@@ -9,7 +9,3 @@ export const getLoginSelector = (state) => {
 export const getUserIdSelector = (state) => {
     return state.auth.userId;
 }
-
-export const getAuthorizedUserIdSelector = (state) => {
-    return state.auth.authorizedUserId;
-}

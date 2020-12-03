@@ -6,10 +6,10 @@ import ProfileDataForm from "./ProfileData/ProfileDataForm";
 import ProfileData from "./ProfileData/ProfileData";
 
 const ProfileInfo = ({profile, updateProfileStatus, profileStatus, isOwner, uploadPhoto, saveProfileData}) => {
-    let [editMode, setEditMode] = useState(false);
+    const [editMode, setEditMode] = useState(false);
 
     const onPhotoSelected = (e) => {
-        let files = e.target.files;
+        const files = e.target.files;
 
         if (files) {
             uploadPhoto(files[0]);
@@ -21,9 +21,10 @@ const ProfileInfo = ({profile, updateProfileStatus, profileStatus, isOwner, uplo
     }
 
     const onSubmit = (formData) => {
-        setEditMode(false);
-
         saveProfileData(formData)
+            .then(() => {
+                setEditMode(false);
+            })
     }
 
     return (

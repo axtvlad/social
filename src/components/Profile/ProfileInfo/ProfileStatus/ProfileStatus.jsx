@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 
 const ProfileStatus = ({profileStatus, updateProfileStatus}) => {
-    let [editMode, setEditMode] = useState(false);
-    let [status, setStatus] = useState(profileStatus);
+    const [editMode, setEditMode] = useState(false);
+    const [status, setStatus] = useState(profileStatus);
 
     useEffect(() => {
         setStatus(profileStatus)
@@ -19,7 +19,7 @@ const ProfileStatus = ({profileStatus, updateProfileStatus}) => {
     }
 
     const changeProfileStatus = (e) => {
-        let value = e.target.value;
+        const value = e.target.value;
 
         setStatus(value);
     }

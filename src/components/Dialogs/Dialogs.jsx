@@ -33,7 +33,7 @@ const AddMessageForm = ({onSubmit}) => {
 }
 
 const Dialogs = ({messages, sendMessage, dialogs}) => {
-    let messagesList = messages.map(item =>
+    const messagesList = messages.map(item =>
         <Message
             key={item.id}
             message={item.message}
@@ -41,7 +41,7 @@ const Dialogs = ({messages, sendMessage, dialogs}) => {
         />
     );
 
-    let dialogsList = dialogs.map(item =>
+    const dialogsList = dialogs.map(item =>
         <DialogItem
             key={item.id}
             name={item.name}
