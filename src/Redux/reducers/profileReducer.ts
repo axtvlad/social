@@ -1,5 +1,5 @@
 import {profileAPI} from "../../api/api"
-import {PhotosType, PostsType, ProfileType} from "../../types/types";
+import {PhotosType, PostType, ProfileType} from "../../types/types";
 
 /**
  * CONSTANTS
@@ -32,7 +32,7 @@ const initial = {
             message: 'it is my first post',
             likes: 5
         },
-    ] as Array<PostsType>,
+    ] as Array<PostType>,
     profile: null as ProfileType | null,
     isFetching: false,
     profileStatus: '',

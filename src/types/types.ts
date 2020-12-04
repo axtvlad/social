@@ -1,4 +1,4 @@
-export type PostsType = {
+export type PostType = {
     id: number
     message: string
     likes: number
@@ -34,4 +34,21 @@ export type UserType = {
     name: string
     status: string
     photos: PhotosType
+}
+
+export type DialogType = {
+    id: number
+    name: string
+}
+
+export type MessageType = {
+    id: number
+    message: string
+}
+
+export type LoginFormDataType = {
+    email: string
+    password: string,
+    captcha?: string
+    rememberMe: boolean
 }

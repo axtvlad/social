@@ -6,8 +6,43 @@ import {connect} from "react-redux";
 import {login} from "../../Redux/reducers/authReducer";
 import {Redirect} from "react-router-dom";
 import {getIsAuthSelector} from "../../Redux/selectors/authSelectors";
+import {AppStateType} from "../../Redux/redux-store";
+import {LoginFormDataType} from "../../types/types";
 
-const LoginForm = ({onSubmit, captchaUrl}) => {
+type MapStateToPropsType = {
+    isAuth: boolean
+    captchaUrl: string | null
+}
+
+type MapDispatchToPropsType = {
+    login: (formData: LoginFormDataType) => void
+}
+
+type PropsType = MapStateToPropsType & MapDispatchToPropsType
+
+const Login: React.FC<PropsType> = ({login, isAuth, captchaUrl}) => {
+    const onSubmit = (formData: LoginFormDataType) => {
+        login(formData)
+    }
+
+    if (isAuth) {
+        return <Redirect to={'/profile'}/>
+    }
+
+    return (
+        <div>
+            <h1>LOGIN</h1>
+            <LoginForm onSubmit={onSubmit} captchaUrl={captchaUrl}/>
+        </div>
+    )
+}
+
+type LoginFormPropsType = {
+    onSubmit: (formData: LoginFormDataType) => void
+    captchaUrl: string | null
+}
+
+const LoginForm: React.FC<LoginFormPropsType> = ({onSubmit, captchaUrl}) => {
     return (
         <Form onSubmit={onSubmit}>
             {(props) => {
@@ -51,30 +86,13 @@ const LoginForm = ({onSubmit, captchaUrl}) => {
     )
 }
 
-const Login = ({login, isAuth, captchaUrl}) => {
-    const onSubmit = (formData) => {
-        login(formData)
-    }
-
-    if (isAuth) {
-        return <Redirect to={'/profile'}/>
-    }
-
-    return (
-        <div>
-            <h1>LOGIN</h1>
-            <LoginForm onSubmit={onSubmit} captchaUrl={captchaUrl}/>
-        </div>
-    )
-}
-
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         isAuth: getIsAuthSelector(state),
         captchaUrl: state.auth.captchaUrl
     }
 }
 
-export default connect(mapStateToProps, {
+export default connect<MapStateToPropsType, MapDispatchToPropsType, null, AppStateType>(mapStateToProps, {
     login
 })(Login);

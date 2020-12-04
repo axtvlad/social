@@ -1,3 +1,5 @@
+import {DialogType, MessageType} from "../../types/types";
+
 /**
  * CONSTANTS
  *
@@ -6,16 +8,6 @@
 const SEND_MESSAGE = 'social/dialogs/SEND_MESSAGE'
 
 type InitialType = typeof initial
-
-type DialogsType = {
-    id: number
-    name: string
-}
-
-type MessagesType = {
-    id: number
-    message: string
-}
 
 /**
  * INITIAL
@@ -32,7 +24,7 @@ const initial = {
             id: 2,
             name: 'Andrew'
         }
-    ] as Array<DialogsType>,
+    ] as Array<DialogType>,
     messages: [
         {
             id: 1,
@@ -47,7 +39,7 @@ const initial = {
             id: 4,
             message: 'Hi, how r u?'
         },
-    ] as Array<MessagesType>,
+    ] as Array<MessageType>,
 }
 
 export const dialogsReducer = (state = initial, action: any): InitialType => {
@@ -67,7 +59,7 @@ export const dialogsReducer = (state = initial, action: any): InitialType => {
     }
 }
 
-type SendMessageActionType = {
+export type SendMessageActionType = {
     type: typeof SEND_MESSAGE,
     messageText: string
 }

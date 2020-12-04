@@ -1,4 +1,5 @@
 import {authAPI, securityAPI} from "../../api/api"
+import {LoginFormDataType} from "../../types/types";
 
 /**
  * CONSTANTS
@@ -98,11 +99,7 @@ export const me = () => async (dispatch: any) => {
     }
 }
 
-type LoginFormDataType = {
-    email: string
-    password: string,
-    captcha: string
-}
+
 
 export const login = (formData: LoginFormDataType) => async (dispatch: any) => {
     const data = await authAPI.login(formData);
