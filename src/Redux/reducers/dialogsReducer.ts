@@ -3,7 +3,19 @@
  *
  * Constants for action creators
  */
-const SEND_MESSAGE = 'social/dialogs/SEND_MESSAGE';
+const SEND_MESSAGE = 'social/dialogs/SEND_MESSAGE'
+
+type InitialType = typeof initial
+
+type DialogsType = {
+    id: number
+    name: string
+}
+
+type MessagesType = {
+    id: number
+    message: string
+}
 
 /**
  * INITIAL
@@ -20,7 +32,7 @@ const initial = {
             id: 2,
             name: 'Andrew'
         }
-    ],
+    ] as Array<DialogsType>,
     messages: [
         {
             id: 1,
@@ -35,10 +47,10 @@ const initial = {
             id: 4,
             message: 'Hi, how r u?'
         },
-    ],
+    ] as Array<MessagesType>,
 }
 
-export const dialogsReducer = (state = initial, action) => {
+export const dialogsReducer = (state = initial, action: any): InitialType => {
     switch (action.type) {
         case SEND_MESSAGE: {
             return {
@@ -55,7 +67,12 @@ export const dialogsReducer = (state = initial, action) => {
     }
 }
 
-export const sendMessage = (messageText) => (
+type SendMessageActionType = {
+    type: typeof SEND_MESSAGE,
+    messageText: string
+}
+
+export const sendMessage = (messageText: string): SendMessageActionType => (
     {
         type: SEND_MESSAGE,
         messageText: messageText

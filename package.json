@@ -6,6 +6,10 @@
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/user-event": "^12.1.10",
+    "@types/jest": "^26.0.16",
+    "@types/node": "^14.14.10",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
     "axios": "^0.21.0",
     "classnames": "^2.2.6",
     "final-form": "^4.20.1",
@@ -19,6 +23,7 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
+    "typescript": "4.0.5",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
@@ -47,5 +52,8 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/classnames": "^2.2.11",
+    "@types/react-redux": "^7.1.11"
+  }
 }

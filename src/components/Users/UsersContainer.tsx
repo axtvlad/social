@@ -7,21 +7,42 @@ import {compose} from "redux";
 import {
     getCurrentPageSelector,
     getFollowingInProgressSelector,
-    getUsersIsFetchingSelector,
     getPageSizeSelectorSelector,
     getTotalUsersCountSelector,
+    getUsersIsFetchingSelector,
     getUsersSelector
 } from "../../Redux/selectors/usersSelectors";
 import Paginator from "../common/Paginator/Paginator";
+import {UserType} from "../../types/types";
+import {AppStateType} from "../../Redux/redux-store";
 
-class UsersContainer extends React.Component {
+type MapStatePropsType = {
+    pageSize: number
+    currentPage: number
+    isFetching: boolean
+    totalUsersCount: number
+    users: Array<UserType>
+    followingInProgress: Array<number>
+}
+
+type MapDispatchPropsType = {
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+    getUsersList: (pageSize: number, currentPage: number) => void
+}
+
+type OwnPropsType = {}
+
+type PropsType = MapDispatchPropsType & MapStatePropsType & OwnPropsType
+
+class UsersContainer extends React.Component<PropsType> {
     componentDidMount() {
         const {getUsersList, pageSize, currentPage} = this.props;
 
         getUsersList(pageSize, currentPage);
     }
 
-    changePage = (pageNumber) => {
+    changePage = (pageNumber: number) => {
         const {getUsersList, pageSize} = this.props;
 
         getUsersList(pageSize, pageNumber);
@@ -35,7 +56,6 @@ class UsersContainer extends React.Component {
             currentPage,
             users, follow,
             unfollow,
-            setFollowingInProgress,
             followingInProgress
         } = this.props;
 
@@ -52,7 +72,6 @@ class UsersContainer extends React.Component {
                         users={users}
                         follow={follow}
                         unfollow={unfollow}
-                        setFollowingInProgress={setFollowingInProgress}
                         followingInProgress={followingInProgress}
                     />
                 }
@@ -61,7 +80,7 @@ class UsersContainer extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         users: getUsersSelector(state),
         pageSize: getPageSizeSelectorSelector(state),
@@ -73,7 +92,7 @@ const mapStateToProps = (state) => {
 }
 
 export default compose(
-    connect(mapStateToProps, {
+    connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps, {
         follow,
         unfollow,
         getUsersList

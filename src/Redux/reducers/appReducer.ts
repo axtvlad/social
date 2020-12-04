@@ -8,17 +8,22 @@ import {me} from "./authReducer";
 const INITIALIZED_SUCCESS = 'social/app/INITIALIZED_SUCCESS';
 
 /**
+ * Type of initial state for AppReducer
+ */
+type InitialStateType = {
+    initialized: boolean
+}
+
+/**
  * INITIAL
  *
  * initialized - [default: false] - Con be (false) or (true). If app is initialised then (true) else (false)
- * globalError - [default: null] - Con be (null) or (string). If app have some errors then (string) else (null)
  */
-const initial = {
+const initial: InitialStateType = {
     initialized: false,
-    globalError: null,
 }
 
-export const appReducer = (state = initial, action) => {
+export const appReducer = (state = initial, action: any): InitialStateType => {
     switch (action.type) {
         case INITIALIZED_SUCCESS: {
             return {
@@ -32,13 +37,24 @@ export const appReducer = (state = initial, action) => {
     }
 }
 
-const initializedSuccess = () => (
+/**
+ * Type of initializedSuccess action
+ */
+type InitializedSuccessActionType = {
+    type: typeof INITIALIZED_SUCCESS
+}
+
+/**
+ * const func = (): InitializedSuccessActionType => {} значит, что фукнция возвращает объект типа InitializedSuccessActionType
+ */
+
+const initializedSuccess = (): InitializedSuccessActionType => (
     {
         type: INITIALIZED_SUCCESS,
     }
 )
 
-export const initializeApp = () => (dispatch) => {
+export const initializeApp = () => (dispatch: any) => {
     const promise = dispatch(me());
 
     Promise.all([promise])

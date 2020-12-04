@@ -12,7 +12,7 @@ const ProfileDataForm = ({onSubmit, profile}) => {
                 return (
                     <form onSubmit={props.handleSubmit} name={'ProfileDataForm'} className={classes.gridFields}>
                         <div>
-                            <span>Full name:</span>
+                            <span className={classes.span}>Full name:</span>
                             <Field
                                 name={'fullName'}
                                 placeholder={'Full name'}
@@ -23,7 +23,7 @@ const ProfileDataForm = ({onSubmit, profile}) => {
                             />
                         </div>
                         <div className={classes.checkbox}>
-                            <span>Looking for a job?</span>
+                            <span className={classes.span}>Looking for a job?</span>
                             <Field
                                 name={'lookingForAJob'}
                                 placeholder={'Looking for a job?'}
@@ -33,7 +33,7 @@ const ProfileDataForm = ({onSubmit, profile}) => {
                             />
                         </div>
                         <div>
-                            <span>My skills</span>
+                            <span className={classes.span}>My skills</span>
                             <Field
                                 name={'lookingForAJobDescription'}
                                 placeholder={'My skills'}
@@ -43,7 +43,7 @@ const ProfileDataForm = ({onSubmit, profile}) => {
                             />
                         </div>
                         <div>
-                            <span>About me</span>
+                            <span className={classes.span}>About me</span>
                             <Field
                                 name={'aboutMe'}
                                 placeholder={'About me'}
@@ -57,7 +57,7 @@ const ProfileDataForm = ({onSubmit, profile}) => {
                             {Object.keys(contacts).map(key => {
                                 return (
                                     <div key={key}>
-                                        <span>{key}</span>
+                                        <span className={classes.span}>{key}</span>
                                         <Field
                                             name={'contacts.' + key}
                                             placeholder={key}
