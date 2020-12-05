@@ -165,7 +165,7 @@ export const saveProfileData = (profileData: ProfileType): ThunkType => async (d
             throw new Error('userId can not be null')
         }
     } else {
-        if (data.messages.length) {
+        if (data.messages?.length) {
             alert(data.messages[0]);
             await Promise.reject(data.messages[0]);
         }

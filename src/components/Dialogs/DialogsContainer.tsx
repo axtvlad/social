@@ -8,16 +8,16 @@ import {DialogType, MessageType} from "../../types/types";
 import React from "react";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
-type MapStateToPropsType = {
+type StateToProps = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
 }
 
-type MapDispatchToPropsType = {
+type DispatchToProps = {
     sendMessage: (messageText: string) => void
 }
 
-type Props = MapStateToPropsType & MapDispatchToPropsType
+type Props = StateToProps & DispatchToProps
 
 class DialogsContainer extends React.Component<Props> {
     render() {
@@ -29,7 +29,7 @@ class DialogsContainer extends React.Component<Props> {
     }
 }
 
-const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
+const mapStateToProps = (state: AppStateType): StateToProps => {
     return {
         dialogs: getDialogs(state),
         messages: getMessages(state)
@@ -37,7 +37,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 }
 
 export default compose<React.ComponentType>(
-    connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, {
+    connect<StateToProps, DispatchToProps, {}, AppStateType>(mapStateToProps, {
         sendMessage: actions.sendMessage,
     }),
     withAuthRedirect,

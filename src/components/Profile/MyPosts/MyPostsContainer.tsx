@@ -6,16 +6,16 @@ import React from "react";
 import {PostType, ProfileType} from "../../../types/types";
 import {AppStateType} from "../../../Redux/redux-store";
 
-type StateProps = {
+type StateToProps = {
     posts: Array<PostType>
     profile: ProfileType | null
 }
 
-type DispatchProps = {
+type DispatchToProps = {
     addPost: (postText: string) => void
 }
 
-type Props = StateProps & DispatchProps
+type Props = StateToProps & DispatchToProps
 
 class MyPostsContainer extends React.Component<Props> {
     render() {
@@ -27,13 +27,13 @@ class MyPostsContainer extends React.Component<Props> {
     }
 }
 
-const mapStateToProps = (state: AppStateType): StateProps => {
+const mapStateToProps = (state: AppStateType): StateToProps => {
     return {
         posts: getPostsSelector(state),
         profile: getProfileSelector(state)
     }
 };
 
-export default connect<StateProps, DispatchProps, {}, AppStateType>(mapStateToProps, {
+export default connect<StateToProps, DispatchToProps, {}, AppStateType>(mapStateToProps, {
     addPost: postText => actions.addPost(postText),
 })(MyPostsContainer);

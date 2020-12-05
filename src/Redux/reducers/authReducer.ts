@@ -85,7 +85,7 @@ export const login = (formData: LoginFormDataType): ThunkType => async (dispatch
             dispatch(getCaptcha());
         }
 
-        if (data.messages.length) {
+        if (data.messages?.length) {
             alert(data.messages[0]);
         }
     }
@@ -105,7 +105,7 @@ export const logout = (): ThunkType => async (dispatch) => {
     if (data.resultCode === ResultCodesEnum.Success) {
         dispatch(actions.setAuthUserData(null, null, null, false));
     } else {
-        if (data.messages.length) {
+        if (data.messages?.length) {
             alert(data.messages[0]);
         }
     }

@@ -8,7 +8,7 @@ import {
     updateProfileStatus,
     uploadPhoto
 } from "../../Redux/reducers/profileReducer";
-import {withRouter} from "react-router-dom";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 import {getIsAuthSelector, getUserIdSelector} from "../../Redux/selectors/authSelectors";
@@ -32,12 +32,12 @@ type DispatchToProps = {
     saveProfileData: () => void
 }
 
-type OwnProps = {
-    match: any
-    history: any
+type PathParams = {
+    userId: string
 }
+type RouterMatch = RouteComponentProps<PathParams>
 
-type Props = StateToProps & DispatchToProps & OwnProps
+type Props = StateToProps & DispatchToProps & RouterMatch
 
 class ProfileContainer extends React.Component<Props> {
     componentDidMount() {
@@ -55,12 +55,15 @@ class ProfileContainer extends React.Component<Props> {
     refreshProfile = () => {
         const {match, currentUserId, history, getProfile, getProfileStatus} = this.props;
 
-        let userId = match.params.userId;
+        // псевдоистина - в данном случае userId: string, если поставить перед значением +, то конвертирует в число
+        // например: а='1';  +a // 1
+        let userId: number | null = +match.params.userId;
 
         if (!userId) {
             userId = currentUserId;
 
             if (!userId) {
+                // todo поменять push на redirect
                 return history.push('/profile');
             }
         }

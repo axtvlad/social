@@ -16,7 +16,7 @@ import Paginator from "../common/Paginator/Paginator";
 import {UserType} from "../../types/types";
 import {AppStateType} from "../../Redux/redux-store";
 
-type MapStatePropsType = {
+type StateToProps = {
     pageSize: number
     currentPage: number
     isFetching: boolean
@@ -25,15 +25,13 @@ type MapStatePropsType = {
     followingInProgress: Array<number>
 }
 
-type MapDispatchPropsType = {
+type DispatchToProps = {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     getUsersList: (pageSize: number, currentPage: number) => void
 }
 
-type OwnPropsType = {}
-
-type Props = MapDispatchPropsType & MapStatePropsType & OwnPropsType
+type Props = DispatchToProps & StateToProps
 
 class UsersContainer extends React.Component<Props> {
     componentDidMount() {
@@ -80,7 +78,7 @@ class UsersContainer extends React.Component<Props> {
     }
 }
 
-const mapStateToProps = (state: AppStateType): MapStatePropsType => {
+const mapStateToProps = (state: AppStateType): StateToProps => {
     return {
         users: getUsersSelector(state),
         pageSize: getPageSizeSelectorSelector(state),
@@ -92,7 +90,7 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 }
 
 export default compose<React.ComponentType>(
-    connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps, {
+    connect<StateToProps, DispatchToProps, { }, AppStateType>(mapStateToProps, {
         follow,
         unfollow,
         getUsersList
