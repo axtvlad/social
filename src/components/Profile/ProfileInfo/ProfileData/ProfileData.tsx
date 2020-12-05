@@ -1,7 +1,14 @@
 import React from 'react';
 import Contact from "../Contact/Contact";
+import {ProfileType} from "../../../../types/types";
 
-const ProfileData = ({profile, editModeOn, isOwner}) => {
+type Props = {
+    profile: ProfileType
+    editModeOn: () => void
+    isOwner: boolean
+}
+
+const ProfileData: React.FC<Props> = ({profile, editModeOn, isOwner}) => {
     const {fullName, lookingForAJob, lookingForAJobDescription, aboutMe, contacts} = profile;
 
     return (

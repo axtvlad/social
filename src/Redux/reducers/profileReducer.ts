@@ -1,17 +1,7 @@
-import {profileAPI} from "../../api/api"
+import {ResultCodesEnum} from "../../api/api"
 import {PhotosType, PostType, ProfileType} from "../../types/types";
-
-/**
- * CONSTANTS
- *
- * Constants for action creators
- */
-const ADD_POST = 'social/profile/ADD_POST'
-const DELETE_POST = 'social/profile/DELETE_POST'
-const SET_USER_PROFILE = 'social/profile/SET_USER_PROFILE'
-const SET_IS_FETCHING = 'social/profile/SET_IS_FETCHING'
-const SET_PROFILE_STATUS = 'social/profile/SET_PROFILE_STATUS'
-const UPDATE_PHOTO_SUCCESS = 'social/profile/UPDATE_PHOTO_SUCCESS'
+import {BaseThunkType, InferActionsTypes} from "../redux-store";
+import {profileAPI} from "../../api/ProfileAPI";
 
 /**
  * INITIAL
@@ -38,11 +28,9 @@ const initial = {
     profileStatus: '',
 }
 
-type InitialType = typeof initial
-
-export const profileReducer = (state = initial, action: any): InitialType => {
+export const profileReducer = (state = initial, action: ActionTypes): InitialType => {
     switch (action.type) {
-        case ADD_POST: {
+        case 'SOCIAL/PROFILE/ADD_POST': {
             return {
                 ...state,
                 posts: [...state.posts, {
@@ -52,31 +40,31 @@ export const profileReducer = (state = initial, action: any): InitialType => {
                 }],
             };
         }
-        case SET_USER_PROFILE: {
+        case 'SOCIAL/PROFILE/SET_USER_PROFILE': {
             return {
                 ...state,
                 profile: action.profile
             };
         }
-        case DELETE_POST: {
+        case 'SOCIAL/PROFILE/DELETE_POST': {
             return {
                 ...state,
                 posts: state.posts.filter(post => post.id !== action.id)
             };
         }
-        case SET_IS_FETCHING: {
+        case 'SOCIAL/PROFILE/SET_IS_FETCHING': {
             return {
                 ...state,
                 isFetching: action.isFetching
             };
         }
-        case SET_PROFILE_STATUS: {
+        case 'SOCIAL/PROFILE/SET_PROFILE_STATUS': {
             return {
                 ...state,
                 profileStatus: action.profileStatus
             };
         }
-        case UPDATE_PHOTO_SUCCESS: {
+        case 'SOCIAL/PROFILE/UPDATE_PHOTO_SUCCESS': {
             return {
                 ...state,
                 profile: {
@@ -91,99 +79,59 @@ export const profileReducer = (state = initial, action: any): InitialType => {
     }
 }
 
-type AadPostActionType = {
-    type: typeof ADD_POST
-    postText: string
-}
-
-export const addPost = (postText: string): AadPostActionType => (
-    {
-        type: ADD_POST,
+export const actions = {
+    addPost: (postText: string) => ({
+        type: 'SOCIAL/PROFILE/ADD_POST',
         postText: postText
-    }
-);
-
-type DeletePostActionType = {
-    type: typeof DELETE_POST
-    id: number
-}
-
-export const deletePost = (id: number): DeletePostActionType => (
-    {
-        type: DELETE_POST,
+    } as const),
+    deletePost: (id: number) => ({
+        type: 'SOCIAL/PROFILE/DELETE_POST',
         id: id
-    }
-);
-
-type SetUserProfile = {
-    type: typeof SET_USER_PROFILE,
-    profile: ProfileType
-}
-
-const setUserProfile = (profile: ProfileType): SetUserProfile => (
-    {
-        type: SET_USER_PROFILE,
+    } as const),
+    setUserProfile: (profile: ProfileType) => ({
+        type: 'SOCIAL/PROFILE/SET_USER_PROFILE',
         profile: profile
-    }
-);
-
-type SetIsFetching = {
-    type: typeof SET_IS_FETCHING,
-    isFetching: boolean
-}
-
-const setIsFetching = (isFetching: boolean): SetIsFetching => (
-    {
-        type: SET_IS_FETCHING,
+    } as const),
+    setIsFetching: (isFetching: boolean) => ({
+        type: 'SOCIAL/PROFILE/SET_IS_FETCHING',
         isFetching: isFetching
-    }
-);
-
-type SetProfileStatus = {
-    type: typeof SET_PROFILE_STATUS,
-    profileStatus: string
-}
-
-const setProfileStatus = (profileStatus: string): SetProfileStatus => (
-    {
-        type: SET_PROFILE_STATUS,
+    } as const),
+    setProfileStatus: (profileStatus: string) => ({
+        type: 'SOCIAL/PROFILE/SET_PROFILE_STATUS',
         profileStatus: profileStatus
-    }
-);
-
-type UpdatePhotoSuccess = {
-    type: typeof UPDATE_PHOTO_SUCCESS,
-    photos: PhotosType
-}
-
-const updatePhotoSuccess = (photos: PhotosType): UpdatePhotoSuccess => (
-    {
-        type: UPDATE_PHOTO_SUCCESS,
+    } as const),
+    updatePhotoSuccess: (photos: PhotosType) => ({
+        type: 'SOCIAL/PROFILE/UPDATE_PHOTO_SUCCESS',
         photos: photos
-    }
-);
-
-export const getProfile = (userId: number) => async (dispatch: any) => {
-    dispatch(setIsFetching(true))
-
-    const data = await profileAPI.getProfile(userId);
-
-    dispatch(setUserProfile(data))
-    dispatch(setIsFetching(false))
+    } as const),
 }
 
-export const getProfileStatus = (userId: number) => async (dispatch: any) => {
+export const getProfile = (userId: number): ThunkType => async (dispatch) => {
+    dispatch(actions.setIsFetching(true))
+
+    if (userId) {
+        const data = await profileAPI.getProfileAPI(userId);
+
+        dispatch(actions.setUserProfile(data))
+    } else {
+        throw new Error('userId can not be null')
+    }
+
+    dispatch(actions.setIsFetching(false))
+}
+
+export const getProfileStatus = (userId: number): ThunkType => async (dispatch) => {
     const profileStatus = await profileAPI.getProfileStatus(userId);
 
-    dispatch(setProfileStatus(profileStatus))
+    dispatch(actions.setProfileStatus(profileStatus))
 }
 
-export const updateProfileStatus = (profileStatus: string) => async (dispatch: any) => {
+export const updateProfileStatus = (profileStatus: string): ThunkType => async (dispatch) => {
     try {
         const response = await profileAPI.updateProfileStatus(profileStatus);
 
-        if (response.data.resultCode === 0) {
-            dispatch(setProfileStatus(profileStatus))
+        if (response.data.resultCode === ResultCodesEnum.Success) {
+            dispatch(actions.setProfileStatus(profileStatus))
         } else {
             if (response.data.messages.length) {
                 alert(response.data.messages[0]);
@@ -194,11 +142,11 @@ export const updateProfileStatus = (profileStatus: string) => async (dispatch: a
     }
 }
 
-export const uploadPhoto = (photo: any) => async (dispatch: any) => {
+export const uploadPhoto = (photo: File): ThunkType => async (dispatch) => {
     const data = await profileAPI.uploadPhoto(photo);
 
-    if (data.resultCode === 0) {
-        dispatch(updatePhotoSuccess(data.data.photos))
+    if (data.resultCode === ResultCodesEnum.Success) {
+        dispatch(actions.updatePhotoSuccess(data.data.photos))
     } else {
         if (data.messages.length) {
             alert(data.messages[0]);
@@ -206,12 +154,16 @@ export const uploadPhoto = (photo: any) => async (dispatch: any) => {
     }
 }
 
-export const saveProfileData = (profileData: any) => async (dispatch: any, getState: any) => {
+export const saveProfileData = (profileData: ProfileType): ThunkType => async (dispatch, getState) => {
     const userId = getState().auth.userId;
     const data = await profileAPI.saveProfile(profileData);
 
-    if (data.resultCode === 0) {
-        dispatch(getProfile(userId));
+    if (data.resultCode === ResultCodesEnum.Success) {
+        if (userId) {
+            await dispatch(getProfile(userId));
+        } else {
+            throw new Error('userId can not be null')
+        }
     } else {
         if (data.messages.length) {
             alert(data.messages[0]);
@@ -219,3 +171,8 @@ export const saveProfileData = (profileData: any) => async (dispatch: any, getSt
         }
     }
 }
+
+type InitialType = typeof initial
+// type DispatchType = Dispatch<ActionTypes>
+type ThunkType = BaseThunkType<ActionTypes>
+type ActionTypes = InferActionsTypes<typeof actions>

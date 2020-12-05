@@ -1,14 +1,13 @@
 import {AppStateType} from "../redux-store";
-import {PostType, ProfileType} from "../../types/types";
 
-export const getProfileSelector = (state: AppStateType): ProfileType | null => {
+export const getProfileSelector = (state: AppStateType) => {
     return state.profilePage.profile;
 }
 
-export const getProfileStatusSelector = (state: AppStateType): string => {
+export const getProfileStatusSelector = (state: AppStateType) => {
     return state.profilePage.profileStatus;
 }
 
-export const getPostsSelector = (state: AppStateType): Array<PostType> => {
+export const getPostsSelector = (state: AppStateType) => {
     return state.profilePage.posts;
 }

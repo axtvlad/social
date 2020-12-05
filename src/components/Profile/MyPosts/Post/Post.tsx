@@ -1,8 +1,15 @@
 import React from 'react';
 import classes from './Post.module.css';
 import undefinedAva from "../../../../media/user.png";
+import {ProfileType} from "../../../../types/types";
 
-const Post = ({profile, message, likes}) => {
+type Props = {
+    profile: ProfileType | null
+    message: string
+    likes: number
+}
+
+const Post: React.FC<Props> = ({profile, message, likes}) => {
     const getUserAvatar = () => {
         if (profile && profile.photos.small) {
             return profile.photos.small;

@@ -9,17 +9,42 @@ import {
     uploadPhoto
 } from "../../Redux/reducers/profileReducer";
 import {withRouter} from "react-router-dom";
-import {withAuthRedirect} from "../../hoc/WithAuthRedirect";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 import {getIsAuthSelector, getUserIdSelector} from "../../Redux/selectors/authSelectors";
 import {getProfileSelector, getProfileStatusSelector} from "../../Redux/selectors/profileSelectors";
+import {ProfileType} from "../../types/types";
+import {AppStateType} from "../../Redux/redux-store";
+import Preloader from "../common/Preloader/Preloader";
 
-class ProfileContainer extends React.Component {
+type StateToProps = {
+    currentUserId: number | null
+    profileStatus: string
+    profile: ProfileType | null
+    isAuth: boolean
+}
+
+type DispatchToProps = {
+    getProfile: (userId: number) => void
+    getProfileStatus: (userId: number) => void
+    updateProfileStatus: (status: string) => void
+    uploadPhoto: () => void
+    saveProfileData: () => void
+}
+
+type OwnProps = {
+    match: any
+    history: any
+}
+
+type Props = StateToProps & DispatchToProps & OwnProps
+
+class ProfileContainer extends React.Component<Props> {
     componentDidMount() {
         this.refreshProfile()
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    componentDidUpdate(prevProps: Props, prevState: StateToProps) {
         const {match} = this.props;
 
         if (match.params.userId !== prevProps.match.params.userId) {
@@ -36,7 +61,7 @@ class ProfileContainer extends React.Component {
             userId = currentUserId;
 
             if (!userId) {
-                history.push('/profile');
+                return history.push('/profile');
             }
         }
 
@@ -46,6 +71,10 @@ class ProfileContainer extends React.Component {
 
     render() {
         const {profile, updateProfileStatus, profileStatus, match, uploadPhoto, saveProfileData} = this.props;
+
+        if (!profile) {
+            return <Preloader/>
+        }
 
         return (
             <Profile
@@ -60,7 +89,7 @@ class ProfileContainer extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppStateType): StateToProps => {
     return {
         profile: getProfileSelector(state),
         currentUserId: getUserIdSelector(state),
@@ -69,7 +98,7 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default compose(
+export default compose<React.ComponentType>(
     connect(mapStateToProps, {
         getProfile,
         getProfileStatus,

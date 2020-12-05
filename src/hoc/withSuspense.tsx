@@ -1,12 +1,12 @@
 import React from 'react';
 
-export const withSuspense = (Component) => {
+export function withSuspense<WCP>(WrappedComponent: React.ComponentType<WCP>) {
     const loading = <div>Loading...</div>;
 
-    return (props) => {
+    return (props: WCP) => {
         return (
             <React.Suspense fallback={loading}>
-                <Component {...props}/>
+                <WrappedComponent {...props}/>
             </React.Suspense>
         )
     }

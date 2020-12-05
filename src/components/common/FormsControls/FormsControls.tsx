@@ -1,13 +1,20 @@
 import React from 'react';
 import classes from './FormsControls.module.css';
 
-const FormControls = ({input, meta: {touched, error}, child, ...props}) => {
+type Props = {
+    meta: {
+        touched: boolean,
+        error: string
+    }
+}
+
+const FormControls: React.FC<Props> = ({meta: {touched, error}, children, ...props}) => {
     const hasError = touched && error;
 
     return (
         <div className={classes.formControl + ' ' + (hasError ? classes.error : '')}>
             <div>
-                {props.children}
+                {children}
             </div>
             {hasError &&
             <div>
@@ -18,13 +25,13 @@ const FormControls = ({input, meta: {touched, error}, child, ...props}) => {
     )
 }
 
-export const Textarea = (props) => {
+export const Textarea = (props: any) => {
     const {input, meta, child, ...restProps} = props;
 
     return <FormControls {...props}><textarea {...input} {...restProps}/></FormControls>
 }
 
-export const Input = (props) => {
+export const Input = (props: any) => {
     const {input, meta, child, ...restProps} = props;
 
     return <FormControls {...props}><input {...input} {...restProps}/></FormControls>

@@ -1,10 +1,9 @@
 import {AppStateType} from "../redux-store";
-import {DialogType, MessageType} from "../../types/types";
 
-export const getDialogs = (state: AppStateType): Array<DialogType> => {
+export const getDialogs = (state: AppStateType) => {
     return state.dialogsPage.dialogs;
 }
 
-export const getMessages = (state: AppStateType): Array<MessageType> => {
+export const getMessages = (state: AppStateType) => {
     return state.dialogsPage.messages;
 }

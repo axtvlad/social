@@ -1,11 +1,11 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 
-type PropsType = {
+type Props = {
     profileStatus: string
     updateProfileStatus: (status: string) => void
 }
 
-const ProfileStatus: React.FC<PropsType> = ({profileStatus, updateProfileStatus}) => {
+const ProfileStatus: React.FC<Props> = ({profileStatus, updateProfileStatus}) => {
     const [editMode, setEditMode] = useState(false);
     const [status, setStatus] = useState(profileStatus);
 

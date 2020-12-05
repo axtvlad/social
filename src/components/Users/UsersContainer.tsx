@@ -33,9 +33,9 @@ type MapDispatchPropsType = {
 
 type OwnPropsType = {}
 
-type PropsType = MapDispatchPropsType & MapStatePropsType & OwnPropsType
+type Props = MapDispatchPropsType & MapStatePropsType & OwnPropsType
 
-class UsersContainer extends React.Component<PropsType> {
+class UsersContainer extends React.Component<Props> {
     componentDidMount() {
         const {getUsersList, pageSize, currentPage} = this.props;
 
@@ -91,7 +91,7 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     }
 }
 
-export default compose(
+export default compose<React.ComponentType>(
     connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps, {
         follow,
         unfollow,

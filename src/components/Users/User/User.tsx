@@ -2,9 +2,17 @@ import React from 'react';
 import classes from "./User.module.css";
 import undefinedAva from "../../../media/user.png";
 import {NavLink} from "react-router-dom";
+import {UserType} from "../../../types/types";
 
-const User = ({unfollow, follow, followingInProgress, user}) => {
-    const unfollowButton = (userId) => {
+type Props = {
+    unfollow: (userId: number) => void
+    follow: (userId: number) => void
+    followingInProgress: Array<number>
+    user: UserType
+}
+
+const User: React.FC<Props> = ({unfollow, follow, followingInProgress, user}) => {
+    const unfollowButton = (userId: number) => {
         return (
             <button
                 onClick={() => {
@@ -17,7 +25,7 @@ const User = ({unfollow, follow, followingInProgress, user}) => {
         )
     }
 
-    const followButton = (userId) => {
+    const followButton = (userId: number) => {
         return (
             <button
                 onClick={() => {

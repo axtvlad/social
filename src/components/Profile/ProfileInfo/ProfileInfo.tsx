@@ -1,14 +1,24 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import classes from './ProfileInfo.module.css';
 import undefinedAva from '../../../media/user.png'
 import ProfileStatus from "./ProfileStatus/ProfileStatus";
 import ProfileDataForm from "./ProfileData/ProfileDataForm";
 import ProfileData from "./ProfileData/ProfileData";
+import {ProfileType} from "../../../types/types";
 
-const ProfileInfo = ({profile, updateProfileStatus, profileStatus, isOwner, uploadPhoto, saveProfileData}) => {
+type Props = {
+    profile: ProfileType
+    updateProfileStatus: (status: string) => void
+    profileStatus: string
+    isOwner: boolean
+    uploadPhoto: (photo: File) => void
+    saveProfileData: (formData: ProfileType) => any
+}
+
+const ProfileInfo: React.FC<Props> = ({profile, updateProfileStatus, profileStatus, isOwner, uploadPhoto, saveProfileData}) => {
     const [editMode, setEditMode] = useState(false);
 
-    const onPhotoSelected = (e) => {
+    const onPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
 
         if (files) {
@@ -20,7 +30,7 @@ const ProfileInfo = ({profile, updateProfileStatus, profileStatus, isOwner, uplo
         setEditMode(true);
     }
 
-    const onSubmit = (formData) => {
+    const onSubmit = (formData: ProfileType) => {
         saveProfileData(formData)
             .then(() => {
                 setEditMode(false);

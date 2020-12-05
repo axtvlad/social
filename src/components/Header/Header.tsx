@@ -3,13 +3,13 @@ import classes from './Header.module.css';
 import ava from '../../media/Ava.jpg';
 import {NavLink} from "react-router-dom";
 
-type PropsType = {
+type Props = {
     isAuth: boolean
     login: string | null
     logout: () => void
 }
 
-const Header: React.FC<PropsType> = ({isAuth, login, logout}) => {
+const Header: React.FC<Props> = ({isAuth, login, logout}) => {
     return (
         <div className={classes.header}>
             <img className={classes.logo} src={ava} alt={'logo'}/>

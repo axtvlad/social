@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import classes from "./Paginator.module.css";
 import cn from 'classnames';
 
-type PropsType = {
+type Props = {
     totalItemsCount: number
     pageSize: number
     currentPage: number
@@ -10,7 +10,7 @@ type PropsType = {
     portionSize?: number
 }
 
-const Paginator: React.FC<PropsType> = (
+const Paginator: React.FC<Props> = (
     {
         totalItemsCount,
         pageSize,

@@ -1,31 +1,23 @@
-import {me} from "./authReducer";
-
-/**
- * CONSTANTS
- *
- * Constants for action creators
- */
-const INITIALIZED_SUCCESS = 'social/app/INITIALIZED_SUCCESS';
+import {me} from "./authReducer"
+import {InferActionsTypes} from "../redux-store"
 
 /**
  * Type of initial state for AppReducer
  */
-type InitialStateType = {
-    initialized: boolean
-}
+type InitialStateType = typeof initial
 
 /**
  * INITIAL
  *
  * initialized - [default: false] - Con be (false) or (true). If app is initialised then (true) else (false)
  */
-const initial: InitialStateType = {
+const initial = {
     initialized: false,
 }
 
-export const appReducer = (state = initial, action: any): InitialStateType => {
+export const appReducer = (state = initial, action: ActionTypes): InitialStateType => {
     switch (action.type) {
-        case INITIALIZED_SUCCESS: {
+        case 'SOCIAL/APP/INITIALIZED_SUCCESS': {
             return {
                 ...state,
                 initialized: true
@@ -37,28 +29,26 @@ export const appReducer = (state = initial, action: any): InitialStateType => {
     }
 }
 
-/**
- * Type of initializedSuccess action
- */
-type InitializedSuccessActionType = {
-    type: typeof INITIALIZED_SUCCESS
-}
+// type DispatchType = Dispatch<ActionTypes>
+// type ThunkType = BaseThunkType<ActionTypes>
+
+type ActionTypes = InferActionsTypes<typeof actions>
 
 /**
  * const func = (): InitializedSuccessActionType => {} значит, что фукнция возвращает объект типа InitializedSuccessActionType
  */
 
-const initializedSuccess = (): InitializedSuccessActionType => (
-    {
-        type: INITIALIZED_SUCCESS,
-    }
-)
+export const actions = {
+    initializedSuccess: () => ({
+        type: 'SOCIAL/APP/INITIALIZED_SUCCESS',
+    } as const)
+}
 
 export const initializeApp = () => (dispatch: any) => {
     const promise = dispatch(me());
 
     Promise.all([promise])
         .then(() => {
-            dispatch(initializedSuccess());
+            dispatch(actions.initializedSuccess());
         })
 }

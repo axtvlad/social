@@ -1,13 +1,5 @@
 import {DialogType, MessageType} from "../../types/types";
-
-/**
- * CONSTANTS
- *
- * Constants for action creators
- */
-const SEND_MESSAGE = 'social/dialogs/SEND_MESSAGE'
-
-type InitialType = typeof initial
+import {InferActionsTypes} from "../redux-store";
 
 /**
  * INITIAL
@@ -42,9 +34,9 @@ const initial = {
     ] as Array<MessageType>,
 }
 
-export const dialogsReducer = (state = initial, action: any): InitialType => {
+export const dialogsReducer = (state = initial, action: ActionTypes): InitialType => {
     switch (action.type) {
-        case SEND_MESSAGE: {
+        case 'SOCIAL/DIALOGS/SEND_MESSAGE': {
             return {
                 ...state,
                 messages: [...state.messages, {
@@ -59,14 +51,15 @@ export const dialogsReducer = (state = initial, action: any): InitialType => {
     }
 }
 
-export type SendMessageActionType = {
-    type: typeof SEND_MESSAGE,
-    messageText: string
+type ActionTypes = InferActionsTypes<typeof actions>
+
+export const actions = {
+    sendMessage: (messageText: string) => ({
+        type: 'SOCIAL/DIALOGS/SEND_MESSAGE',
+        messageText: messageText
+    } as const)
 }
 
-export const sendMessage = (messageText: string): SendMessageActionType => (
-    {
-        type: SEND_MESSAGE,
-        messageText: messageText
-    }
-)
+// type DispatchType = Dispatch<ActionTypes>
+// type ThunkType = BaseThunkType<ActionTypes>
+type InitialType = typeof initial

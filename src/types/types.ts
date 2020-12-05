@@ -13,6 +13,7 @@ export type ContactsType = {
     website: string
     youtube: string
     mainLink: string
+    [key: string]: string
 }
 
 export type PhotosType = {
@@ -27,9 +28,11 @@ export type ProfileType = {
     fullName: string
     contacts: ContactsType
     photos: PhotosType
+    aboutMe: string
 }
 
 export type UserType = {
+    followed: boolean;
     id: number
     name: string
     status: string

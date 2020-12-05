@@ -2,8 +2,21 @@ import {Field, Form} from "react-final-form";
 import {required} from "../../../../utils/validators/validators";
 import React from "react";
 import classes from './ProfileDataForm.module.css'
+import {ProfileType} from "../../../../types/types";
 
-const ProfileDataForm = ({onSubmit, profile}) => {
+type Props = {
+    onSubmit: (formData: ProfileType) => void,
+    profile: ProfileType
+}
+
+enum ProfileDataFormFields {
+    fullName = 'fullName',
+    lookingForAJob = 'lookingForAJob',
+    lookingForAJobDescription = 'lookingForAJobDescription',
+    aboutMe = 'aboutMe',
+}
+
+const ProfileDataForm: React.FC<Props> = ({onSubmit, profile}) => {
     const {fullName, lookingForAJob, lookingForAJobDescription, aboutMe, contacts} = profile;
 
     return (
@@ -14,7 +27,7 @@ const ProfileDataForm = ({onSubmit, profile}) => {
                         <div>
                             <span className={classes.span}>Full name:</span>
                             <Field
-                                name={'fullName'}
+                                name={ProfileDataFormFields.fullName}
                                 placeholder={'Full name'}
                                 type={'text'}
                                 component={'input'}
@@ -25,7 +38,7 @@ const ProfileDataForm = ({onSubmit, profile}) => {
                         <div className={classes.checkbox}>
                             <span className={classes.span}>Looking for a job?</span>
                             <Field
-                                name={'lookingForAJob'}
+                                name={ProfileDataFormFields.lookingForAJob}
                                 placeholder={'Looking for a job?'}
                                 type={'checkbox'}
                                 component={'input'}
@@ -35,7 +48,7 @@ const ProfileDataForm = ({onSubmit, profile}) => {
                         <div>
                             <span className={classes.span}>My skills</span>
                             <Field
-                                name={'lookingForAJobDescription'}
+                                name={ProfileDataFormFields.lookingForAJobDescription}
                                 placeholder={'My skills'}
                                 component={'textarea'}
                                 validate={required}
@@ -45,7 +58,7 @@ const ProfileDataForm = ({onSubmit, profile}) => {
                         <div>
                             <span className={classes.span}>About me</span>
                             <Field
-                                name={'aboutMe'}
+                                name={ProfileDataFormFields.aboutMe}
                                 placeholder={'About me'}
                                 component={'textarea'}
                                 validate={required}
