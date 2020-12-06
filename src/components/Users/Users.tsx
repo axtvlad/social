@@ -1,6 +1,6 @@
-import React from 'react';
-import User from "./User/User";
-import {UserType} from "../../types/types";
+import React from 'react'
+import User from "./User/User"
+import {UserType} from "../../types/types"
 
 type Props = {
     unfollow: (userId: number) => void

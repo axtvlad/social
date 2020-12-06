@@ -8,7 +8,7 @@ import {
     updateProfileStatus,
     uploadPhoto
 } from "../../Redux/reducers/profileReducer";
-import {RouteComponentProps, withRouter} from "react-router-dom";
+import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 import {getIsAuthSelector, getUserIdSelector} from "../../Redux/selectors/authSelectors";
@@ -53,7 +53,7 @@ class ProfileContainer extends React.Component<Props> {
     }
 
     refreshProfile = () => {
-        const {match, currentUserId, history, getProfile, getProfileStatus} = this.props;
+        const {match, currentUserId, getProfile, getProfileStatus} = this.props;
 
         // псевдоистина - в данном случае userId: string, если поставить перед значением +, то конвертирует в число
         // например: а='1';  +a // 1
@@ -63,8 +63,7 @@ class ProfileContainer extends React.Component<Props> {
             userId = currentUserId;
 
             if (!userId) {
-                // todo поменять push на redirect
-                return history.push('/profile');
+                return <Redirect to={'/login'}/>
             }
         }
 
