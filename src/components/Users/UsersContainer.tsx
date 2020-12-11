@@ -16,7 +16,7 @@ import {
 import Paginator from "../common/Paginator/Paginator"
 import {UserType} from "../../types/types"
 import {AppStateType} from "../../Redux/redux-store"
-import UsersSearchForm from "./UsersSeartchForm"
+import UsersSearchForm from "./UsersSearchForm"
 
 type StateToProps = {
     pageSize: number

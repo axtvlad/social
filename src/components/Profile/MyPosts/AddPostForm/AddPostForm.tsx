@@ -1,44 +1,46 @@
 import React from "react";
-import {Field, Form} from "react-final-form";
-import {Textarea} from "../../../common/FormsControls/FormsControls";
-import {composeValidators, maxLength, required} from "../../../../utils/validators/validators";
+import {ErrorMessage, Field, Form, Formik} from "formik";
+import {AddPostFormDataType} from "../../../../types/types";
 
 type Props = {
-    onSubmit: (formData: AddPostFormType) => void
-}
-
-type AddPostFormType = {
-    postText: string
+    addPost: (formData: AddPostFormDataType) => void
 }
 
 enum AddPostFormFields {
     postText = 'postText'
 }
 
-const AddPostForm: React.FC<Props> = ({onSubmit}) => {
+const AddPostForm: React.FC<Props> = React.memo(({addPost}) => {
+    const initialValuesOfForm = {
+        [AddPostFormFields.postText]: ''
+    }
+
+    const onSubmit = (formData: AddPostFormDataType, {setSubmitting}: { setSubmitting: (isSubmitting: boolean) => void }) => {
+        addPost(formData)
+
+        setSubmitting(false)
+    }
     return (
-        <Form onSubmit={onSubmit}>
-            {(props) => {
-                return (
-                    <form onSubmit={props.handleSubmit} name={'AddPostForm'}>
+        <Formik
+            onSubmit={onSubmit}
+            initialValues={initialValuesOfForm}
+        >
+            {
+                ({isSubmitting}) => (
+                    <Form>
+                        <Field component={'textarea'} name={AddPostFormFields.postText}/>
+                        <ErrorMessage name={AddPostFormFields.postText} component="div"/>
+
                         <div>
-                            <Field
-                                component={Textarea}
-                                name={AddPostFormFields.postText}
-                                validate={composeValidators(required, maxLength(300))}
-                                placeholder={'post msg'}
-                            />
-                        </div>
-                        <div>
-                            <button>
+                            <button type="submit" disabled={isSubmitting}>
                                 Add post
                             </button>
                         </div>
-                    </form>
+                    </Form>
                 )
-            }}
-        </Form>
+            }
+        </Formik>
     )
-}
+})
 
 export default AddPostForm

@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {compose} from "redux";
 import {getDialogs, getMessages} from "../../Redux/selectors/dialogsSelectors";
 import {AppStateType} from "../../Redux/redux-store";
-import {DialogType, MessageType} from "../../types/types";
+import {DialogType, MessageType, SendMessageFormDataType} from "../../types/types";
 import React from "react";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
@@ -14,7 +14,7 @@ type StateToProps = {
 }
 
 type DispatchToProps = {
-    sendMessage: (messageText: string) => void
+    sendMessage: (messageText: SendMessageFormDataType) => void
 }
 
 type Props = StateToProps & DispatchToProps

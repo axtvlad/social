@@ -1,44 +1,47 @@
-import {Field, Form} from "react-final-form";
-import {Textarea} from "../../common/FormsControls/FormsControls";
-import {composeValidators, maxLength, required} from "../../../utils/validators/validators";
 import React from "react";
+import {ErrorMessage, Field, Form, Formik} from "formik";
+import {SendMessageFormDataType} from "../../../types/types";
 
 type Props = {
-    onSubmit: (formData: FormDataType) => void
-}
-
-type FormDataType = {
-    messageText: string
+    sendMessage: (messageText: SendMessageFormDataType) => void
 }
 
 enum AddMessageFormFields {
     messageText = 'messageText'
 }
 
-const  AddMessageForm: React.FC<Props> = ({onSubmit}) => {
+const AddMessageForm: React.FC<Props> = React.memo(({sendMessage}) => {
+    const initialValuesOfForm = {
+        [AddMessageFormFields.messageText]: ''
+    }
+
+    const onSubmit = (formData: SendMessageFormDataType, {setSubmitting}: { setSubmitting: (isSubmitting: boolean) => void }) => {
+        sendMessage(formData)
+
+        setSubmitting(false)
+    }
+
     return (
-        <Form onSubmit={onSubmit}>
-            {(props) => {
-                return (
-                    <form onSubmit={props.handleSubmit} name={'AddMessageForm'}>
+        <Formik
+            onSubmit={onSubmit}
+            initialValues={initialValuesOfForm}
+        >
+            {
+                ({isSubmitting}) => (
+                    <Form>
+                        <Field component={'textarea'} name={AddMessageFormFields.messageText}/>
+                        <ErrorMessage name={AddMessageFormFields.messageText} component="div"/>
+
                         <div>
-                            <Field
-                                name={AddMessageFormFields.messageText}
-                                component={Textarea}
-                                placeholder={'Enter ur msg'}
-                                validate={composeValidators(required, maxLength(100))}
-                            />
-                        </div>
-                        <div>
-                            <button>
+                            <button type="submit" disabled={isSubmitting}>
                                 Send
                             </button>
                         </div>
-                    </form>
+                    </Form>
                 )
-            }}
-        </Form>
+            }
+        </Formik>
     )
-}
+})
 
 export default AddMessageForm

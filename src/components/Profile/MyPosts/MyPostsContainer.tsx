@@ -3,7 +3,7 @@ import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
 import {getPostsSelector, getProfileSelector} from "../../../Redux/selectors/profileSelectors";
 import React from "react";
-import {PostType, ProfileType} from "../../../types/types";
+import {AddPostFormDataType, PostType, ProfileType} from "../../../types/types";
 import {AppStateType} from "../../../Redux/redux-store";
 
 type StateToProps = {
@@ -12,7 +12,7 @@ type StateToProps = {
 }
 
 type DispatchToProps = {
-    addPost: (postText: string) => void
+    addPost: (postText: AddPostFormDataType) => void
 }
 
 type Props = StateToProps & DispatchToProps
@@ -35,5 +35,5 @@ const mapStateToProps = (state: AppStateType): StateToProps => {
 };
 
 export default connect<StateToProps, DispatchToProps, {}, AppStateType>(mapStateToProps, {
-    addPost: postText => actions.addPost(postText),
+    addPost: formData => actions.addPost(formData),
 })(MyPostsContainer);

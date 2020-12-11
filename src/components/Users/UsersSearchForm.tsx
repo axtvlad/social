@@ -31,7 +31,6 @@ const UsersSearchForm: React.FC<Props> = React.memo(({onFilterChanged}) => {
     }
 
     const SubmitForm = (values: FormType, {setSubmitting}: { setSubmitting: (isSubmitting: boolean) => void }) => {
-
         const filter: FilterType = {
             term: values.term,
             friend: JSON.parse(values.friend)
@@ -67,7 +66,7 @@ const UsersSearchForm: React.FC<Props> = React.memo(({onFilterChanged}) => {
 
                             <div>
                                 <button type="submit" disabled={isSubmitting}>
-                                    Submit
+                                    Search
                                 </button>
                             </div>
                         </Form>

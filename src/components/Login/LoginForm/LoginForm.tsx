@@ -1,11 +1,9 @@
 import {LoginFormDataType} from "../../../types/types";
 import React from "react";
-import {Field, Form} from "react-final-form";
-import {Input} from "../../common/FormsControls/FormsControls";
-import {composeValidators, maxLength, required} from "../../../utils/validators/validators";
+import {ErrorMessage, Field, Form, Formik} from "formik";
 
 type Props = {
-    onSubmit: (formData: LoginFormDataType) => void
+    login: (formData: LoginFormDataType) => void
     captchaUrl: string | null
 }
 
@@ -16,48 +14,66 @@ enum LoginFormFields {
     captcha = 'captcha'
 }
 
-const LoginForm: React.FC<Props> = ({onSubmit, captchaUrl}) => {
+const LoginForm: React.FC<Props> = React.memo(({login, captchaUrl}) => {
+    const initialValuesOfForm = {
+        [LoginFormFields.email]: '',
+        [LoginFormFields.password]: '',
+        [LoginFormFields.rememberMe]: false,
+    }
+
+    const onSubmit = (formData: LoginFormDataType, {setSubmitting}: { setSubmitting: (isSubmitting: boolean) => void }) => {
+        login(formData)
+
+        setSubmitting(false)
+    }
+
     return (
-        <Form onSubmit={onSubmit}>
-            {(props) => {
-                return (
-                    <form onSubmit={props.handleSubmit} name={'LoginForm'}>
+        <Formik
+            onSubmit={onSubmit}
+            initialValues={initialValuesOfForm}
+        >
+            {
+                ({isSubmitting}) => (
+                    <Form>
                         <div>
-                            <Field
-                                name={LoginFormFields.email}
-                                placeholder={'Email'}
-                                component={Input}
-                                validate={composeValidators(required, maxLength(50))}
-                            />
+                            <Field type={'text'} name={LoginFormFields.email}/>
+                            <ErrorMessage name={LoginFormFields.email} component="div"/>
                         </div>
+
                         <div>
-                            <Field
-                                name={LoginFormFields.password}
-                                placeholder={'Password'}
-                                type={'password'}
-                                component={Input}
-                                validate={composeValidators(required, maxLength(50))}
-                            />
+                            <Field type={'password'} name={LoginFormFields.password}/>
+                            <ErrorMessage name={LoginFormFields.password} component="div"/>
                         </div>
+
                         <div>
-                            <Field name={LoginFormFields.rememberMe} type={'checkbox'} component={Input}/> remember me
+                            <label>
+                                <Field placeholder={'remember me'} type={'checkbox'}
+                                       name={LoginFormFields.rememberMe}/>
+                                remember me
+                                <ErrorMessage name={LoginFormFields.rememberMe} component="div"/>
+                            </label>
                         </div>
+
                         {captchaUrl &&
                         <div>
                             <img src={captchaUrl} alt="captcha"/>
                             <div>
                                 <Field name={LoginFormFields.captcha} type={'text'} component={'input'}/>
+                                <ErrorMessage name={LoginFormFields.captcha} component="div"/>
                             </div>
                         </div>
                         }
+
                         <div>
-                            <button>Login</button>
+                            <button type="submit" disabled={isSubmitting}>
+                                Login
+                            </button>
                         </div>
-                    </form>
+                    </Form>
                 )
-            }}
-        </Form>
+            }
+        </Formik>
     )
-}
+})
 
 export default LoginForm

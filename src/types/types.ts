@@ -55,3 +55,11 @@ export type LoginFormDataType = {
     captcha?: string
     rememberMe: boolean
 }
+
+export type SendMessageFormDataType = {
+    messageText: string
+}
+
+export type AddPostFormDataType = {
+    postText: string
+}

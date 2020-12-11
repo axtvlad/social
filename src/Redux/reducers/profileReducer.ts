@@ -1,5 +1,5 @@
 import {ResultCodesEnum} from "../../api/api"
-import {PhotosType, PostType, ProfileType} from "../../types/types";
+import {AddPostFormDataType, PhotosType, PostType, ProfileType} from "../../types/types";
 import {BaseThunkType, InferActionsTypes} from "../redux-store";
 import {profileAPI} from "../../api/ProfileAPI";
 
@@ -80,9 +80,9 @@ export const profileReducer = (state = initial, action: ActionTypes): InitialTyp
 }
 
 export const actions = {
-    addPost: (postText: string) => ({
+    addPost: (formData: AddPostFormDataType) => ({
         type: 'SOCIAL/PROFILE/ADD_POST',
-        postText: postText
+        postText: formData.postText
     } as const),
     deletePost: (id: number) => ({
         type: 'SOCIAL/PROFILE/DELETE_POST',

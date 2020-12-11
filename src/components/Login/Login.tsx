@@ -19,10 +19,6 @@ type DispatchToProps = {
 type Props = StateToProps & DispatchToProps
 
 const Login: React.FC<Props> = ({login, isAuth, captchaUrl}) => {
-    const onSubmit = (formData: LoginFormDataType) => {
-        login(formData)
-    }
-
     if (isAuth) {
         return <Redirect to={'/profile'}/>
     }
@@ -30,7 +26,7 @@ const Login: React.FC<Props> = ({login, isAuth, captchaUrl}) => {
     return (
         <div>
             <h1>LOGIN</h1>
-            <LoginForm onSubmit={onSubmit} captchaUrl={captchaUrl}/>
+            <LoginForm login={login} captchaUrl={captchaUrl}/>
         </div>
     )
 }

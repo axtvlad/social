@@ -1,4 +1,4 @@
-import {DialogType, MessageType} from "../../types/types";
+import {DialogType, MessageType, SendMessageFormDataType} from "../../types/types";
 import {InferActionsTypes} from "../redux-store";
 
 /**
@@ -54,9 +54,9 @@ export const dialogsReducer = (state = initial, action: ActionTypes): InitialTyp
 type ActionTypes = InferActionsTypes<typeof actions>
 
 export const actions = {
-    sendMessage: (messageText: string) => ({
+    sendMessage: (formData: SendMessageFormDataType) => ({
         type: 'SOCIAL/DIALOGS/SEND_MESSAGE',
-        messageText: messageText
+        messageText: formData.messageText
     } as const)
 }
 
