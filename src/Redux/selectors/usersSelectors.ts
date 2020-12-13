@@ -5,7 +5,7 @@ const getUsers = (state: AppStateType) => {
     return state.usersPage.users;
 };
 
-export const getPageSizeSelectorSelector = (state: AppStateType) => {
+export const getPageSizeSelector = (state: AppStateType) => {
     return state.usersPage.pageSize;
 };
 

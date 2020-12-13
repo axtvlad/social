@@ -1,5 +1,5 @@
 import {ResultCodesEnum} from "../../api/api"
-import {AddPostFormDataType, PhotosType, PostType, ProfileType} from "../../types/types";
+import {AddPostFormDataType, EditProfileDataForm, PhotosType, PostType, ProfileType} from "../../types/types";
 import {BaseThunkType, InferActionsTypes} from "../redux-store";
 import {profileAPI} from "../../api/ProfileAPI";
 
@@ -154,9 +154,9 @@ export const uploadPhoto = (photo: File): ThunkType => async (dispatch) => {
     }
 }
 
-export const saveProfileData = (profileData: ProfileType): ThunkType => async (dispatch, getState) => {
+export const saveProfileData = (formData: EditProfileDataForm): ThunkType => async (dispatch, getState) => {
     const userId = getState().auth.userId;
-    const data = await profileAPI.saveProfile(profileData);
+    const data = await profileAPI.saveProfile(formData);
 
     if (data.resultCode === ResultCodesEnum.Success) {
         if (userId) {

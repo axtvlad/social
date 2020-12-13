@@ -63,3 +63,11 @@ export type SendMessageFormDataType = {
 export type AddPostFormDataType = {
     postText: string
 }
+
+export type EditProfileDataForm = {
+    fullName: string
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    aboutMe: string
+    contacts: ContactsType
+}

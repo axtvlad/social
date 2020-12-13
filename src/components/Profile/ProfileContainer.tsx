@@ -11,9 +11,9 @@ import {
 import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
-import {getIsAuthSelector, getUserIdSelector} from "../../Redux/selectors/authSelectors";
-import {getProfileSelector, getProfileStatusSelector} from "../../Redux/selectors/profileSelectors";
-import {ProfileType} from "../../types/types";
+import {selectIsAuth, selectUserId} from "../../Redux/selectors/authSelectors";
+import {selectProfile, selectProfileStatus} from "../../Redux/selectors/profileSelectors";
+import {EditProfileDataForm, ProfileType} from "../../types/types";
 import {AppStateType} from "../../Redux/redux-store";
 import Preloader from "../common/Preloader/Preloader";
 
@@ -28,8 +28,8 @@ type DispatchToProps = {
     getProfile: (userId: number) => void
     getProfileStatus: (userId: number) => void
     updateProfileStatus: (status: string) => void
-    uploadPhoto: () => void
-    saveProfileData: () => void
+    uploadPhoto: (photo: File) => void
+    saveProfileData: (formData: EditProfileDataForm) => void
 }
 
 type PathParams = {
@@ -93,10 +93,10 @@ class ProfileContainer extends React.Component<Props> {
 
 const mapStateToProps = (state: AppStateType): StateToProps => {
     return {
-        profile: getProfileSelector(state),
-        currentUserId: getUserIdSelector(state),
-        profileStatus: getProfileStatusSelector(state),
-        isAuth: getIsAuthSelector(state),
+        profile: selectProfile(state),
+        currentUserId: selectUserId(state),
+        profileStatus: selectProfileStatus(state),
+        isAuth: selectIsAuth(state),
     }
 }
 

@@ -1,17 +1,22 @@
-import React from 'react';
+import React, {FC} from 'react';
 import Post from "./Post/Post";
 import classes from './MyPosts.module.css'
-import {AddPostFormDataType, PostType, ProfileType} from "../../../types/types";
+import {AddPostFormDataType} from "../../../types/types";
 import AddPostForm from "./AddPostForm/AddPostForm";
+import {useDispatch, useSelector} from "react-redux";
+import {selectPosts, selectProfile} from "../../../Redux/selectors/profileSelectors";
+import {actions} from '../../../Redux/reducers/profileReducer';
 
-type Props = {
-    posts: Array<PostType>
-    profile: ProfileType | null
+export const MyPosts: FC = React.memo((props) => {
+    const posts = useSelector(selectPosts)
+    const profile = useSelector(selectProfile)
 
-    addPost: (postMessage: AddPostFormDataType) => void
-}
+    const dispatch = useDispatch()
 
-const MyPosts: React.FC<Props> = React.memo(({posts, profile, addPost}) => {
+    const onAddPost = (formData: AddPostFormDataType) => {
+        dispatch(actions.addPost(formData))
+    }
+
     const postsList = [...posts]
         .reverse()
         .map(item =>
@@ -26,12 +31,10 @@ const MyPosts: React.FC<Props> = React.memo(({posts, profile, addPost}) => {
     return (
         <div className={classes.postsBloc}>
             <h3>my posts</h3>
-            <AddPostForm addPost={addPost}/>
+            <AddPostForm addPost={onAddPost}/>
             <div className={classes.posts}>
                 {postsList}
             </div>
         </div>
     );
 })
-
-export default MyPosts

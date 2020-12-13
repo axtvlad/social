@@ -1,9 +1,9 @@
 import {AppStateType} from "../redux-store";
 
-export const getDialogs = (state: AppStateType) => {
+export const selectDialogs = (state: AppStateType) => {
     return state.dialogsPage.dialogs;
 }
 
-export const getMessages = (state: AppStateType) => {
+export const selectMessages = (state: AppStateType) => {
     return state.dialogsPage.messages;
 }

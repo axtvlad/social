@@ -1,4 +1,4 @@
-import {PhotosType, ProfileType} from "../types/types";
+import {EditProfileDataForm, PhotosType, ProfileType} from "../types/types";
 import {api} from "./api";
 import {APIResponseType} from "./AuthAPI";
 
@@ -32,7 +32,7 @@ export const profileAPI = {
         })
             .then(res => res.data)
     },
-    saveProfile(profileData: ProfileType) {
+    saveProfile(profileData: EditProfileDataForm) {
         return api.put<APIResponseType<ProfileType>>(`profile`, profileData)
             .then(res => res.data)
     }

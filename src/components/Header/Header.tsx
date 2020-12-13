@@ -1,30 +1,65 @@
-import React from 'react';
-import classes from './Header.module.css';
-import ava from '../../media/Ava.jpg';
+import React, {FC} from 'react';
+import {Affix, Avatar, Button, Col, Layout, Menu, Row, Typography} from "antd"
+import {LogoutOutlined, UserOutlined} from '@ant-design/icons'
+import {useDispatch, useSelector} from "react-redux";
+import {selectIsAuth, selectLogin} from "../../Redux/selectors/authSelectors";
+import {logout} from "../../Redux/reducers/authReducer";
 import {NavLink} from "react-router-dom";
 
-type Props = {
-    isAuth: boolean
-    login: string | null
-    logout: () => void
-}
+export const Header: FC = (props) => {
+    const {Header} = Layout
+    const {Text} = Typography;
 
-const Header: React.FC<Props> = ({isAuth, login, logout}) => {
+    const isAuth = useSelector(selectIsAuth)
+    const login = useSelector(selectLogin)
+
+    const dispatch = useDispatch()
+
+    const onLogout = () => {
+        dispatch(logout())
+    }
+
     return (
-        <div className={classes.header}>
-            <img className={classes.logo} src={ava} alt={'logo'}/>
-            <div className={classes.loginBlock}>
-                {isAuth
-                    ? <div>{login}
-                        <button onClick={logout}>Logout</button>
-                    </div>
-                    : <NavLink to={'/login'}>
-                        Login
-                    </NavLink>
-                }
-            </div>
-        </div>
+        <Affix offsetTop={0}>
+            <Header className="header">
+                <div className="logo"/>
+                <Row>
+                    <Col span={21}>
+                        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
+                            <Menu.Item key="1">nav 1</Menu.Item>
+                            <Menu.Item key="2">nav 2</Menu.Item>
+                            <Menu.Item key="3">nav 3</Menu.Item>
+                        </Menu>
+                    </Col>
+                    {isAuth ?
+                        <>
+                            <Col span={1}>
+                                <Avatar icon={<UserOutlined/>}/>
+                            </Col>
+                            <Col span={1}>
+                                <Text style={{color: "white"}}>{login}</Text>
+                            </Col>
+                            <Col span={1}>
+                                <Button
+                                    type={"link"}
+                                    style={{color: "white"}}
+                                    shape="circle"
+                                    icon={<LogoutOutlined/>}
+                                    onClick={onLogout}
+                                    size={"large"}
+                                />
+                            </Col>
+                        </> :
+                        <Col span={1}>
+                            <Button>
+                                <NavLink to={'/login'}>
+                                    Login
+                                </NavLink>
+                            </Button>
+                        </Col>
+                    }
+                </Row>
+            </Header>
+        </Affix>
     );
 }
-
-export default Header;

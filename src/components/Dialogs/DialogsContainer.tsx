@@ -2,7 +2,7 @@ import {actions} from "../../Redux/reducers/dialogsReducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {compose} from "redux";
-import {getDialogs, getMessages} from "../../Redux/selectors/dialogsSelectors";
+import {selectDialogs, selectMessages} from "../../Redux/selectors/dialogsSelectors";
 import {AppStateType} from "../../Redux/redux-store";
 import {DialogType, MessageType, SendMessageFormDataType} from "../../types/types";
 import React from "react";
@@ -31,8 +31,8 @@ class DialogsContainer extends React.Component<Props> {
 
 const mapStateToProps = (state: AppStateType): StateToProps => {
     return {
-        dialogs: getDialogs(state),
-        messages: getMessages(state)
+        dialogs: selectDialogs(state),
+        messages: selectMessages(state)
     }
 }
 

@@ -1,13 +1,13 @@
 import {AppStateType} from "../redux-store";
 
-export const getProfileSelector = (state: AppStateType) => {
+export const selectProfile = (state: AppStateType) => {
     return state.profilePage.profile;
 }
 
-export const getProfileStatusSelector = (state: AppStateType) => {
+export const selectProfileStatus = (state: AppStateType) => {
     return state.profilePage.profileStatus;
 }
 
-export const getPostsSelector = (state: AppStateType) => {
+export const selectPosts = (state: AppStateType) => {
     return state.profilePage.posts;
 }

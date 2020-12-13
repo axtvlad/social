@@ -1,16 +1,19 @@
 import {ErrorMessage, Field, Form, Formik} from "formik"
 import React from "react"
 import {FilterType} from "../../Redux/reducers/usersReducer"
-import validator from 'validator'
+import {useSelector} from "react-redux";
+import {getUsersFilterSelector} from "../../Redux/selectors/usersSelectors";
 
 enum FieldsEnum {
     term = 'term',
     friend = 'friend'
 }
 
+type FriendUsersFormType = "true" | "false" | "null"
+
 type FormType = {
     term: string,
-    friend: string
+    friend: FriendUsersFormType
 }
 
 type Props = {
@@ -18,17 +21,17 @@ type Props = {
 }
 
 const UsersSearchForm: React.FC<Props> = React.memo(({onFilterChanged}) => {
-    const validate = (values: FilterType) => {
-        const errors: any = {}
-
-        if (!values.term) {
-            errors.term = 'Required'
-        } else if (validator.isEmail(values.term)) {
-            errors.term = 'Email is not supported'
-        }
-
-        return errors
-    }
+    // const validate = (values: FilterType) => {
+    //     const errors: any = {}
+    //
+    //     if (!values.term) {
+    //         errors.term = 'Required'
+    //     } else if (validator.isEmail(values.term)) {
+    //         errors.term = 'Email is not supported'
+    //     }
+    //
+    //     return errors
+    // }
 
     const SubmitForm = (values: FormType, {setSubmitting}: { setSubmitting: (isSubmitting: boolean) => void }) => {
         const filter: FilterType = {
@@ -41,15 +44,18 @@ const UsersSearchForm: React.FC<Props> = React.memo(({onFilterChanged}) => {
         setSubmitting(false)
     }
 
+    const filter = useSelector(getUsersFilterSelector)
+
     const initialValuesOfForm = {
-        [FieldsEnum.term]: '',
-        [FieldsEnum.friend]: 'null'
+        [FieldsEnum.term]: filter.term,
+        [FieldsEnum.friend]: JSON.stringify(filter.friend) as FriendUsersFormType
     }
 
     return (
         <div>
             <Formik
                 initialValues={initialValuesOfForm}
+                enableReinitialize
                 onSubmit={SubmitForm}
                 //validate={validate}
             >

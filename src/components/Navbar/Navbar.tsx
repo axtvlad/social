@@ -1,37 +1,48 @@
-import React from 'react';
-import classes from './Navbar.module.css';
-import {NavLink} from "react-router-dom";
+import React, {FC} from 'react';
+import {NavLink, useHistory} from "react-router-dom";
+import {MessageOutlined, TeamOutlined, UserOutlined} from '@ant-design/icons';
+import {Affix, Layout, Menu} from "antd";
 
-const Navbar = () => {
+export const Navbar: FC = (props) => {
+    const {Sider} = Layout;
+
+    const link = useHistory()
+    const currentMenuKey = link.location.pathname
+
     const links = [
         {
             to: '/profile',
-            name: 'Profile'
+            name: 'Profile',
+            icon: <UserOutlined/>
         }, {
             to: '/dialogs',
-            name: 'Dialogs'
+            name: 'Dialogs',
+            icon: <MessageOutlined/>
         }, {
             to: '/users',
-            name: 'Users'
-        }, {
-            to: '/settings',
-            name: 'Settings'
-        }
+            name: 'Users',
+            icon: <TeamOutlined/>
+        },
     ]
 
     return (
-        <nav className={classes.nav}>
-            {links.map(link => {
-                return (
-                    <div className={classes.item} key={link.to}>
-                        <NavLink to={link.to} activeClassName={classes.active}>
-                            {link.name}
-                        </NavLink>
-                    </div>
-                )
-            })}
-        </nav>
+        <Affix offsetTop={100}>
+            <Sider className="site-layout-background" width={200}>
+                <Menu
+                    mode="inline"
+                    defaultSelectedKeys={[currentMenuKey]}
+                    style={{height: '100%'}}
+                >
+                    {links.map(link => (
+                        <Menu.Item key={link.to} icon={link.icon}>
+                            <NavLink to={link.to}>
+                                {link.name}
+                            </NavLink>
+                        </Menu.Item>
+                    ))}
+                </Menu>
+            </Sider>
+        </Affix>
+
     );
 }
-
-export default Navbar;

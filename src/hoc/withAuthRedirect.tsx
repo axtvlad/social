@@ -1,12 +1,12 @@
 import React from 'react';
 import {Redirect} from "react-router-dom";
 import {connect} from "react-redux";
-import {getIsAuthSelector} from "../Redux/selectors/authSelectors";
+import {selectIsAuth} from "../Redux/selectors/authSelectors";
 import {AppStateType} from "../Redux/redux-store";
 
 const mapStateToProps = (state: AppStateType) => {
     return {
-        isAuth: getIsAuthSelector(state),
+        isAuth: selectIsAuth(state),
     }
 }
 

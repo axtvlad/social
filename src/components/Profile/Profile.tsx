@@ -1,16 +1,16 @@
 import React from 'react';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import Preloader from "../common/Preloader/Preloader";
-import {ProfileType} from "../../types/types";
+import {EditProfileDataForm, ProfileType} from "../../types/types";
+import {MyPosts} from "./MyPosts/MyPosts";
 
 type Props = {
     profile: ProfileType
     updateProfileStatus: (status: string) => void
     profileStatus: string
     isOwner: boolean
-    uploadPhoto: () => void
-    saveProfileData: () => void
+    uploadPhoto: (photo: File) => void
+    saveProfileData: (formData: EditProfileDataForm) => void
 }
 
 const Profile: React.FC<Props> = (props) => {
@@ -19,10 +19,10 @@ const Profile: React.FC<Props> = (props) => {
     }
 
     return (
-        <div>
+        <>
             <ProfileInfo {...props}/>
-            <MyPostsContainer/>
-        </div>
+            <MyPosts/>
+        </>
     );
 }
 
