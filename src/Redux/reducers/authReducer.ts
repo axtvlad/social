@@ -78,11 +78,11 @@ export const login = (formData: LoginFormDataType): ThunkType => async (dispatch
     const data = await authAPI.login(formData);
 
     if (data.resultCode === ResultCodesEnum.Success) {
-        dispatch(me());
+        await dispatch(me());
         dispatch(actions.getCaptchaUrlSuccess(null));
     } else {
         if (data.resultCode === ResultCodeForCaptchaEnum.CaptchaIsRequired) {
-            dispatch(getCaptcha());
+            await dispatch(getCaptcha());
         }
 
         if (data.messages?.length) {

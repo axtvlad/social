@@ -23,7 +23,7 @@ const Profile: React.FC<Props> = (props) => {
             <ProfileInfo {...props}/>
             <MyPosts/>
         </>
-    );
+    )
 }
 
-export default Profile;
+export default Profile

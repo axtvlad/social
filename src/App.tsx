@@ -17,6 +17,7 @@ import {UsersPage} from "./components/Users/UsersPage";
 import {Layout} from 'antd';
 import {Header} from "./components/Header/Header";
 import {Footer} from "./components/Footer/Footer";
+import {ChatPage} from "./components/pages/Chat/ChatPage";
 
 const DialogsContainer = React.lazy(() => import ("./components/Dialogs/DialogsContainer"))
 const ProfileContainer = React.lazy(() => import ("./components/Profile/ProfileContainer"))
@@ -60,6 +61,7 @@ class App extends React.Component<Props> {
                                 <Route render={() => <Music/>} path={'/music'}/>
                                 <Route render={() => <Settings/>} path={'/settings'}/>
                                 <Route render={() => <LoginPage/>} path={'/login'}/>
+                                <Route render={() => <ChatPage/>} path={'/chat'}/>
                                 <Redirect exact from="/" to="/profile"/>
                             </Switch>
                         </Content>

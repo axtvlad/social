@@ -9,21 +9,23 @@ export const Navbar: FC = (props) => {
     const link = useHistory()
     const currentMenuKey = link.location.pathname
 
-    const links = [
-        {
-            to: '/profile',
-            name: 'Profile',
-            icon: <UserOutlined/>
-        }, {
-            to: '/dialogs',
-            name: 'Dialogs',
-            icon: <MessageOutlined/>
-        }, {
-            to: '/users',
-            name: 'Users',
-            icon: <TeamOutlined/>
-        },
-    ]
+    const links = [{
+        to: '/profile',
+        name: 'Profile',
+        icon: <UserOutlined/>
+    }, {
+        to: '/dialogs',
+        name: 'Dialogs',
+        icon: <MessageOutlined/>
+    }, {
+        to: '/users',
+        name: 'Users',
+        icon: <TeamOutlined/>
+    }, {
+        to: '/chat',
+        name: 'Chat',
+        icon: <TeamOutlined/>
+    }]
 
     return (
         <Affix offsetTop={100}>
