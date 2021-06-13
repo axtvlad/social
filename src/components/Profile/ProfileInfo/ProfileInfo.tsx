@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, useState} from 'react';
+import React, {ChangeEvent, CSSProperties, FC, useState} from 'react';
 import classes from './ProfileInfo.module.css';
 import undefinedAva from '../../../media/user.png'
 import ProfileStatus from "./ProfileStatus/ProfileStatus";
@@ -39,8 +39,14 @@ const ProfileInfo: FC<Props> = ({profile, updateProfileStatus, profileStatus, is
             })
     }
 
+    const styles = {
+        descriptionBloc: {
+            padding: 10
+        }
+    }
+
     return (
-        <div className={classes.descriptionBloc}>
+        <div style={styles.descriptionBloc}>
             <Avatar size={300} src={profile.photos.large || undefinedAva}/>
 
             {isOwner && <input type={'file'} onChange={onPhotoSelected}/>}

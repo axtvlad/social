@@ -6,12 +6,16 @@ type Props = {
     contactValue: string
 }
 
-const Contact: React.FC<Props> = ({contactTitle, contactValue}) => {
+export const Contact: React.FC<Props> = ({contactTitle, contactValue}) => {
+    const styles = {
+        wrapper: {
+            paddingLeft: 10
+        }
+    }
+
     return (
-        <div className={classes.contact}>
+        <div style={styles.wrapper}>
             <b>{contactTitle}</b>: <a href={contactValue} target={'_blank'} rel={'noreferrer'}>{contactValue}</a>
         </div>
     )
 }
-
-export default Contact;

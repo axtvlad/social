@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {CSSProperties} from 'react';
 import classes from "./User.module.css";
 import undefinedAva from "../../../media/user.png";
 import {NavLink} from "react-router-dom";
@@ -38,30 +38,38 @@ const User: React.FC<Props> = ({unfollow, follow, followingInProgress, user}) =>
         )
     }
 
+    const {id, photos, name, status, followed} = user
+
+    const styles = {
+        userPhoto: {
+            maxWidth: 50
+        }
+    }
+
     return (
         <div>
             <span>
                 <div>
-                    <NavLink to={'/profile/' + user.id}>
+                    <NavLink to={'/profile/' + id}>
                         <img
-                            src={!user.photos.small ? undefinedAva : user.photos.small}
-                            alt='userAvatar'
-                            className={classes.userPhoto}
+                            src={photos.small ?? undefinedAva}
+                            alt={'userAvatar'}
+                            style={styles.userPhoto}
                         />
                     </NavLink>
                 </div>
                 <div>
-                    {user.followed ? unfollowButton(user.id) : followButton(user.id)}
+                    {followed ? unfollowButton(id) : followButton(id)}
                 </div>
             </span>
             <span>
                 <span>
-                    <div>{user.name}</div>
-                    <div>{user.status}</div>
+                    <div>{name}</div>
+                    <div>{status}</div>
                 </span>
                 <span>
-                    <div>user.location.country</div>
-                    <div>user.location.city</div>
+                    <div>location.country</div>
+                    <div>location.city</div>
                 </span>
             </span>
         </div>

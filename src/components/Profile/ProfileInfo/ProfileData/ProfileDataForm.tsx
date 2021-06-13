@@ -1,4 +1,4 @@
-import React from "react";
+import React, {CSSProperties} from "react";
 import classes from './ProfileDataForm.module.css'
 import {EditProfileDataForm, ProfileType} from "../../../../types/types";
 import {Field, Form, Formik} from "formik";
@@ -32,6 +32,19 @@ export const ProfileDataForm: React.FC<Props> = ({saveProfile, profile}) => {
         setSubmitting(false)
     }
 
+    const styles = {
+        span: {
+            fontWeight: 'bold'
+        } as CSSProperties,
+        grids: {
+            display: "grid",
+            width: 200
+        },
+        lookingForAJob: {
+            display: "flex"
+        }
+    }
+
     return (
         <Formik
             onSubmit={onSubmit}
@@ -39,24 +52,25 @@ export const ProfileDataForm: React.FC<Props> = ({saveProfile, profile}) => {
         >
             {
                 ({isSubmitting}) => (
-                    <Form className={classes.gridFields}>
+                    <Form style={styles.grids}>
                         <div>
-                            <span className={classes.span}>Full name:</span>
+                            <span style={styles.span}>Full name:</span>
                             <Field
                                 name={ProfileDataFormFields.fullName}
                                 placeholder={'Full name'}
                                 type={'text'}
                             />
                         </div>
-                        <div className={classes.checkbox}>
-                            <span className={classes.span}>Looking for a job?</span>
+                        <div>
+                            <span style={styles.span}>Looking for a job?</span>
                             <Field
+                                style={styles.lookingForAJob}
                                 name={ProfileDataFormFields.lookingForAJob}
                                 type={'checkbox'}
                             />
                         </div>
                         <div>
-                            <span className={classes.span}>My skills</span>
+                            <span style={styles.span}>My skills</span>
                             <Field
                                 name={ProfileDataFormFields.lookingForAJobDescription}
                                 placeholder={'My skills'}
@@ -64,7 +78,7 @@ export const ProfileDataForm: React.FC<Props> = ({saveProfile, profile}) => {
                             />
                         </div>
                         <div>
-                            <span className={classes.span}>About me</span>
+                            <span style={styles.span}>About me</span>
                             <Field
                                 name={ProfileDataFormFields.aboutMe}
                                 placeholder={'About me'}
@@ -75,7 +89,7 @@ export const ProfileDataForm: React.FC<Props> = ({saveProfile, profile}) => {
                             <b>Contacts</b>:
                             {Object.keys(contacts).map(key => (
                                 <div key={key}>
-                                    <span className={classes.span}>{key}</span>
+                                    <span style={styles.span}>{key}</span>
                                     <Field
                                         name={'contacts.' + key}
                                         placeholder={key}

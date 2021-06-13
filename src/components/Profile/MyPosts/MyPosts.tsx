@@ -28,11 +28,20 @@ export const MyPosts: FC = React.memo((props) => {
             />
         )
 
+    const styles = {
+        postsBloc: {
+            padding: 10
+        },
+        posts: {
+            marginTop: 5
+        }
+    }
+
     return (
-        <div className={classes.postsBloc}>
+        <div style={styles.postsBloc}>
             <h3>my posts</h3>
             <AddPostForm addPost={onAddPost}/>
-            <div className={classes.posts}>
+            <div style={styles.posts}>
                 {postsList}
             </div>
         </div>

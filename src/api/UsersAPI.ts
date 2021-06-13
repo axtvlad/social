@@ -3,7 +3,7 @@ import {APIResponseType} from "./AuthAPI";
 
 export const usersAPI = {
     getUsers(pageSize = 5, pageNumber = 1, term: string = '', friend: null | boolean = null) {
-        return api.get<GetItemsType>(`users?count=${pageSize}&page=${pageNumber}&term=${term}` + (friend === null ? `` : `&friend=${friend}`))
+        return api.get<GetItemsType>(`users?count=${pageSize}&page=${pageNumber}&term=${term}` + (!friend ? `` : `&friend=${friend}`))
             .then(res => res.data)
     },
     follow(userId: number) {
