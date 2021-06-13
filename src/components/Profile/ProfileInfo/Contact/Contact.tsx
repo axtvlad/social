@@ -1,4 +1,3 @@
-import classes from "./Contact.module.css";
 import React from "react";
 
 type Props = {

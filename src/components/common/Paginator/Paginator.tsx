@@ -1,6 +1,4 @@
 import React, {useState} from 'react';
-import classes from "./Paginator.module.css";
-import cn from 'classnames';
 
 type Props = {
     totalItemsCount: number
@@ -10,13 +8,23 @@ type Props = {
     portionSize?: number
 }
 
-const Paginator: React.FC<Props> = ({
-                                        totalItemsCount,
-                                        pageSize,
-                                        currentPage,
-                                        changePage,
-                                        portionSize = 5
-                                    }) => {
+export const Paginator: React.FC<Props> = (props) => {
+    const {totalItemsCount, pageSize, currentPage, changePage, portionSize = 5} = props
+
+    const styles = {
+        paginator: {
+            margin: 10
+        },
+        pageNumber: {
+            padding: 2,
+            border: '1px solid grey'
+        },
+        selectedPage: {
+            fontWeight: 'bold',
+            borderColor: 'black'
+        }
+    }
+
     const pageCount = Math.ceil(totalItemsCount / pageSize);
     const pages = [];
 
@@ -38,7 +46,7 @@ const Paginator: React.FC<Props> = ({
     }
 
     return (
-        <div className={classes.paginator}>
+        <div style={styles.paginator}>
             {portionNumber > 1 &&
             <button onClick={prevPages}>
                 Prev
@@ -48,9 +56,9 @@ const Paginator: React.FC<Props> = ({
                 .map(page => {
                     return (
                         <span
-                            className={cn({[classes.selectedPage]: currentPage === page}, classes.pageNumber)}
                             onClick={() => changePage(page)}
                             key={page}
+                            style={styles.pageNumber}
                         >
                             {page}
                     </span>
@@ -63,5 +71,3 @@ const Paginator: React.FC<Props> = ({
         </div>
     )
 }
-
-export default Paginator;

@@ -11,17 +11,16 @@ import {
 } from "../../Redux/selectors/usersSelectors";
 import {FilterType, follow, getUsersList, unfollow} from "../../Redux/reducers/usersReducer";
 import UsersSearchForm from "./UsersSearchForm";
-import Paginator from "../common/Paginator/Paginator";
+import {Paginator} from "../common/Paginator/Paginator";
 import {useHistory} from 'react-router-dom';
 import qs from 'qs'
 
-type Props = {}
 type QueryParamsType = {
     term?: string
     page?: string
     friend?: string
 }
-export const Users: FC<Props> = (props) => {
+export const Users: FC = (props) => {
     const users = useSelector(getUsersSelector)
     const followingInProgress = useSelector(getFollowingInProgressSelector)
     const totalUsersCount = useSelector(getTotalUsersCountSelector)
@@ -95,7 +94,7 @@ export const Users: FC<Props> = (props) => {
     }, [filter, currentPage])
 
     return (
-        <div>
+        <>
             <UsersSearchForm onFilterChanged={onFilterChanged}/>
             <Paginator
                 currentPage={currentPage}
@@ -112,6 +111,6 @@ export const Users: FC<Props> = (props) => {
                     followingInProgress={followingInProgress}
                 />
             )}
-        </div>
+        </>
     )
 }

@@ -1,9 +1,9 @@
 import React from 'react';
 import classes from './Dialogs.module.css'
-import DialogItem from "./DialogItem/DialogItem";
-import Message from "./Message/Message";
+import {DialogItem} from "./DialogItem/DialogItem";
+import {Message} from "./Message/Message";
 import {DialogType, MessageType, SendMessageFormDataType} from "../../types/types";
-import AddMessageForm from "./AddMessageForm/AddMessageForm";
+import {AddMessageForm} from "./AddMessageForm/AddMessageForm";
 
 type Props = {
     messages: Array<MessageType>
@@ -12,7 +12,7 @@ type Props = {
     sendMessage: (messageText: SendMessageFormDataType) => void
 }
 
-const Dialogs: React.FC<Props> = ({messages, sendMessage, dialogs}) => {
+export const Dialogs: React.FC<Props> = ({messages, sendMessage, dialogs}) => {
     const messagesList = messages.map(item =>
         <Message
             key={item.id}
@@ -40,5 +40,3 @@ const Dialogs: React.FC<Props> = ({messages, sendMessage, dialogs}) => {
         </div>
     )
 }
-
-export default Dialogs;

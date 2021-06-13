@@ -2,7 +2,7 @@ import React from 'react'
 import './App.css'
 import "antd/dist/antd.css"
 import {Navbar} from "./components/Navbar/Navbar"
-import News from "./components/News/News"
+import {News} from "./components/News/News"
 import Music from "./components/Music/Music"
 import Settings from "./components/Settings/Settings"
 import {LoginPage} from "./components/Login/Login"
@@ -10,7 +10,7 @@ import {connect, Provider} from "react-redux"
 import {compose} from "redux"
 import {BrowserRouter, Redirect, Route, Switch, withRouter} from "react-router-dom"
 import {initializeApp} from "./Redux/reducers/appReducer"
-import Preloader from "./components/common/Preloader/Preloader"
+import {Preloader} from "./components/common/Preloader/Preloader"
 import store, {AppStateType} from "./Redux/redux-store"
 import {withSuspense} from "./hoc/withSuspense"
 import {UsersPage} from "./components/Users/UsersPage";
@@ -47,7 +47,7 @@ class App extends React.Component<Props> {
         }
 
         return (
-            <Layout>
+            <Layout >
                 <Header/>
                 <Content style={{padding: '0 50px'}}>
                     <Layout className="site-layout-background" style={{padding: '24px 0'}}>

@@ -4,20 +4,11 @@
     padding: 10px;
 }
 
-.dialogs-items {
-}
-
 .dialog a.active {
     color: gold;
-}
-
-.dialog {
 }
 
 .dialog a {
     text-decoration: none;
     color: white;
-}
-
-.messages {
 }

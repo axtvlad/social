@@ -18,3 +18,7 @@
     background-color: wheat;
     grid-area: c;
 }
+
+.ant-layout-header {
+    height: 70px !important;
+}

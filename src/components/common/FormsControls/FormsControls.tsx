@@ -8,8 +8,9 @@ type Props = {
     }
 }
 
-const FormControls: React.FC<Props> = ({meta: {touched, error}, children, ...props}) => {
-    const hasError = touched && error;
+const FormControls: React.FC<Props> = (props) => {
+    const {meta: {touched, error}, children, ...otherProps} = props
+    const hasError = touched && error
 
     return (
         <div className={classes.formControl + ' ' + (hasError ? classes.error : '')}>

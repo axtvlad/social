@@ -1,6 +1,5 @@
 import React, {FC} from 'react';
-import Post from "./Post/Post";
-import classes from './MyPosts.module.css'
+import {Post} from "./Post/Post";
 import {AddPostFormDataType} from "../../../types/types";
 import AddPostForm from "./AddPostForm/AddPostForm";
 import {useDispatch, useSelector} from "react-redux";

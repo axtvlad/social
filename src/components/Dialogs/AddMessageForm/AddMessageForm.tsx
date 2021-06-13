@@ -10,12 +10,14 @@ enum AddMessageFormFields {
     messageText = 'messageText'
 }
 
-const AddMessageForm: React.FC<Props> = React.memo(({sendMessage}) => {
+export const AddMessageForm: React.FC<Props> = React.memo(({sendMessage}) => {
     const initialValuesOfForm = {
         [AddMessageFormFields.messageText]: ''
     }
 
-    const onSubmit = (formData: SendMessageFormDataType, {setSubmitting}: { setSubmitting: (isSubmitting: boolean) => void }) => {
+    const onSubmit = (formData: SendMessageFormDataType, {setSubmitting}: {
+        setSubmitting: (isSubmitting: boolean) => void
+    }) => {
         sendMessage(formData)
 
         setSubmitting(false)
@@ -26,22 +28,18 @@ const AddMessageForm: React.FC<Props> = React.memo(({sendMessage}) => {
             onSubmit={onSubmit}
             initialValues={initialValuesOfForm}
         >
-            {
-                ({isSubmitting}) => (
-                    <Form>
-                        <Field component={'textarea'} name={AddMessageFormFields.messageText}/>
-                        <ErrorMessage name={AddMessageFormFields.messageText} component="div"/>
+            {({isSubmitting}) => (
+                <Form>
+                    <Field component={'textarea'} name={AddMessageFormFields.messageText}/>
+                    <ErrorMessage name={AddMessageFormFields.messageText} component="div"/>
 
-                        <div>
-                            <button type="submit" disabled={isSubmitting}>
-                                Send
-                            </button>
-                        </div>
-                    </Form>
-                )
-            }
+                    <div>
+                        <button type="submit" disabled={isSubmitting}>
+                            Send
+                        </button>
+                    </div>
+                </Form>
+            )}
         </Formik>
     )
 })
-
-export default AddMessageForm

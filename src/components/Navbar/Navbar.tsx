@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {NavLink, useHistory} from "react-router-dom";
-import {MessageOutlined, TeamOutlined, UserOutlined} from '@ant-design/icons';
+import {TeamOutlined, UserOutlined} from '@ant-design/icons';
 import {Affix, Layout, Menu} from "antd";
 
 export const Navbar: FC = (props) => {
@@ -13,10 +13,10 @@ export const Navbar: FC = (props) => {
         to: '/profile',
         name: 'Profile',
         icon: <UserOutlined/>
-    }, {
-        to: '/dialogs',
-        name: 'Dialogs',
-        icon: <MessageOutlined/>
+        // }, {
+        //     to: '/dialogs',
+        //     name: 'Dialogs',
+        //     icon: <MessageOutlined/>
     }, {
         to: '/users',
         name: 'Users',
@@ -32,11 +32,11 @@ export const Navbar: FC = (props) => {
             <Sider className="site-layout-background" width={200}>
                 <Menu
                     mode="inline"
-                    defaultSelectedKeys={[currentMenuKey]}
+                    defaultSelectedKeys={[(currentMenuKey === '/' ? links[0].to : currentMenuKey)]}
                     style={{height: '100%'}}
                 >
                     {links.map(link => (
-                        <Menu.Item key={link.to} icon={link.icon}>
+                        <Menu.Item key={link.to} icon={link.icon} >
                             <NavLink to={link.to}>
                                 {link.name}
                             </NavLink>

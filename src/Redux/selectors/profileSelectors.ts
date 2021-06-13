@@ -11,3 +11,7 @@ export const selectProfileStatus = (state: AppStateType) => {
 export const selectPosts = (state: AppStateType) => {
     return state.profilePage.posts;
 }
+
+export const selectUserAvatar = (state: AppStateType) => {
+    return state.profilePage.profile?.photos;
+}

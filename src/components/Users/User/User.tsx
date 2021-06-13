@@ -1,5 +1,4 @@
-import React, {CSSProperties} from 'react';
-import classes from "./User.module.css";
+import React from 'react';
 import undefinedAva from "../../../media/user.png";
 import {NavLink} from "react-router-dom";
 import {UserType} from "../../../types/types";
@@ -47,7 +46,7 @@ const User: React.FC<Props> = ({unfollow, follow, followingInProgress, user}) =>
     }
 
     return (
-        <div>
+        <>
             <span>
                 <div>
                     <NavLink to={'/profile/' + id}>
@@ -72,7 +71,7 @@ const User: React.FC<Props> = ({unfollow, follow, followingInProgress, user}) =>
                     <div>location.city</div>
                 </span>
             </span>
-        </div>
+        </>
     )
 }
 

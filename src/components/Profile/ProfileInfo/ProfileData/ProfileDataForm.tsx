@@ -1,5 +1,4 @@
 import React, {CSSProperties} from "react";
-import classes from './ProfileDataForm.module.css'
 import {EditProfileDataForm, ProfileType} from "../../../../types/types";
 import {Field, Form, Formik} from "formik";
 

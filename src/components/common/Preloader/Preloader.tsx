@@ -1,10 +1,4 @@
 import React from 'react';
-import classes from './Preloader.module.css';
+import {Spin} from "antd";
 
-const Preloader = () => {
-    return (
-        <div className={classes.loader}/>
-    )
-}
-
-export default Preloader;
+export const Preloader = () => <Spin spinning={true} size={"large"}/>

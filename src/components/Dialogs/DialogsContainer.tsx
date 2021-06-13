@@ -1,5 +1,5 @@
 import {actions} from "../../Redux/reducers/dialogsReducer";
-import Dialogs from "./Dialogs";
+import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import {selectDialogs, selectMessages} from "../../Redux/selectors/dialogsSelectors";

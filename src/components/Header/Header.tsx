@@ -1,17 +1,19 @@
-import React, {FC} from 'react';
-import {Affix, Avatar, Button, Col, Layout, Menu, Row, Typography} from "antd"
-import {LogoutOutlined, UserOutlined} from '@ant-design/icons'
-import {useDispatch, useSelector} from "react-redux";
-import {selectIsAuth, selectLogin} from "../../Redux/selectors/authSelectors";
-import {logout} from "../../Redux/reducers/authReducer";
-import {NavLink} from "react-router-dom";
+import React, {FC} from 'react'
+import {Affix, Avatar, Button, Col, Layout, Row, Typography} from "antd"
+import {LogoutOutlined} from '@ant-design/icons'
+import {useDispatch, useSelector} from "react-redux"
+import {selectIsAuth, selectLogin} from "../../Redux/selectors/authSelectors"
+import {logout} from "../../Redux/reducers/authReducer"
+import {NavLink} from "react-router-dom"
+import {selectUserAvatar} from "../../Redux/selectors/profileSelectors"
 
 export const Header: FC = (props) => {
     const {Header} = Layout
-    const {Text} = Typography;
+    const {Text} = Typography
 
     const isAuth = useSelector(selectIsAuth)
     const login = useSelector(selectLogin)
+    const avatar = useSelector(selectUserAvatar)
 
     const dispatch = useDispatch()
 
@@ -21,20 +23,15 @@ export const Header: FC = (props) => {
 
     return (
         <Affix offsetTop={0}>
-            <Header className="header">
-                <div className="logo"/>
+            <Header>
                 <Row>
                     <Col span={21}>
-                        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-                            <Menu.Item key="1">nav 1</Menu.Item>
-                            <Menu.Item key="2">nav 2</Menu.Item>
-                            <Menu.Item key="3">nav 3</Menu.Item>
-                        </Menu>
+                        <Text code={true} style={{color: 'white', fontSize: '2em'}}>{`<AXT SOCIAL />`}</Text>
                     </Col>
                     {isAuth ?
                         <>
                             <Col span={1}>
-                                <Avatar icon={<UserOutlined/>}/>
+                                <Avatar alt={'user avatar'} src={avatar?.small ?? ''}/>
                             </Col>
                             <Col span={1}>
                                 <Text style={{color: "white"}}>{login}</Text>

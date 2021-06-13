@@ -1,5 +1,4 @@
 import React from 'react';
-import classes from './Post.module.css';
 import undefinedAva from "../../../../media/user.png";
 import {ProfileType} from "../../../../types/types";
 
@@ -9,19 +8,29 @@ type Props = {
     likes: number
 }
 
-const Post: React.FC<Props> = ({profile, message, likes}) => {
-    const getUserAvatar = () => {
-        if (profile && profile.photos.small) {
-            return profile.photos.small;
-        } else {
-            return undefinedAva;
+export const Post: React.FC<Props> = ({profile, message, likes}) => {
+    const styles = {
+        item: {
+            color: 'black'
+        },
+        posts: {
+            color: 'green'
+        },
+        ava: {
+            width: 30,
+            height: 30,
+            borderRadius: 40
         }
+    }
+
+    const getUserAvatar = () => {
+        return profile?.photos.small ?? undefinedAva
     };
 
     return (
-        <div className={classes.posts}>
-            <div className={classes.item}>
-                <img className={classes.ava} src={getUserAvatar()} alt={'ava'}/>
+        <div style={styles.posts}>
+            <div style={styles.item}>
+                <img style={styles.ava} src={getUserAvatar()} alt={'ava'}/>
                 {message}
             </div>
             <div>
@@ -32,5 +41,3 @@ const Post: React.FC<Props> = ({profile, message, likes}) => {
         </div>
     );
 }
-
-export default Post;

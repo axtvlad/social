@@ -52,7 +52,7 @@ const UsersSearchForm: React.FC<Props> = React.memo(({onFilterChanged}) => {
     }
 
     return (
-        <div>
+        <>
             <Formik
                 initialValues={initialValuesOfForm}
                 enableReinitialize
@@ -79,7 +79,7 @@ const UsersSearchForm: React.FC<Props> = React.memo(({onFilterChanged}) => {
                     )
                 }
             </Formik>
-        </div>
+        </>
     )
 })
 

@@ -4,7 +4,7 @@ import {login} from "../../Redux/reducers/authReducer";
 import {Redirect} from "react-router-dom";
 import {selectCaptchaUrl, selectIsAuth} from "../../Redux/selectors/authSelectors";
 import {LoginFormDataType} from "../../types/types";
-import LoginForm from "./LoginForm/LoginForm";
+import {LoginForm} from "./LoginForm/LoginForm";
 
 export const LoginPage: React.FC = (props) => {
     const captchaUrl = useSelector(selectCaptchaUrl)
@@ -21,9 +21,9 @@ export const LoginPage: React.FC = (props) => {
     }
 
     return (
-        <div>
+        <>
             <h1>LOGIN</h1>
             <LoginForm login={onLogin} captchaUrl={captchaUrl}/>
-        </div>
+        </>
     )
 }

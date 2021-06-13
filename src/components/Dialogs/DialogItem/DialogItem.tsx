@@ -7,14 +7,12 @@ type Props = {
     name: string
 }
 
-const DialogItem: React.FC<Props> = ({id, name}) => {
-    const path = '/dialogs/';
+export const DialogItem: React.FC<Props> = ({id, name}) => {
+    const pathTo = `/dialogs/${id}`;
 
     return (
         <div className={`${classes.dialog} ${classes.active}`}>
-            <NavLink to={path + id} activeClassName={classes.active}>{name}</NavLink>
+            <NavLink to={pathTo} activeClassName={classes.active}>{name}</NavLink>
         </div>
     )
 }
-
-export default DialogItem;

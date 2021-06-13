@@ -15,11 +15,14 @@ const AddPostForm: React.FC<Props> = React.memo(({addPost}) => {
         [AddPostFormFields.postText]: ''
     }
 
-    const onSubmit = (formData: AddPostFormDataType, {setSubmitting}: { setSubmitting: (isSubmitting: boolean) => void }) => {
+    const onSubmit = (formData: AddPostFormDataType, {setSubmitting}: {
+        setSubmitting: (isSubmitting: boolean) => void
+    }) => {
         addPost(formData)
 
         setSubmitting(false)
     }
+
     return (
         <Formik
             onSubmit={onSubmit}

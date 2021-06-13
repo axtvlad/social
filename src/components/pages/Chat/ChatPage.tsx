@@ -19,7 +19,6 @@ export const ChatPage: FC = () => {
         })
     }, [])
 
-
     const Messages: FC = () => {
         return (
             <div style={{height: 400, overflow: 'auto'}}>
@@ -44,10 +43,10 @@ export const ChatPage: FC = () => {
     }
 
     return (
-        <div>
+        <>
             <Messages/>
             <SendMessageForm/>
-        </div>
+        </>
     )
 }
 

@@ -12,7 +12,7 @@ const ProfileData: React.FC<Props> = ({profile, editModeOn, isOwner}) => {
     const {fullName, lookingForAJob, lookingForAJobDescription, aboutMe, contacts} = profile;
 
     return (
-        <div>
+        <>
             <div>
                 <b>Full name</b>: {fullName}
             </div>
@@ -38,7 +38,7 @@ const ProfileData: React.FC<Props> = ({profile, editModeOn, isOwner}) => {
                 <button onClick={editModeOn}>Edit user's data</button>
             </div>
             }
-        </div>
+        </>
     )
 }
 

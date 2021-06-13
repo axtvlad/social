@@ -1,6 +1,6 @@
 import React from 'react';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import Preloader from "../common/Preloader/Preloader";
+import {Preloader} from "../common/Preloader/Preloader";
 import {EditProfileDataForm, ProfileType} from "../../types/types";
 import {MyPosts} from "./MyPosts/MyPosts";
 

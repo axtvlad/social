@@ -15,7 +15,7 @@ import {selectIsAuth, selectUserId} from "../../Redux/selectors/authSelectors";
 import {selectProfile, selectProfileStatus} from "../../Redux/selectors/profileSelectors";
 import {EditProfileDataForm, ProfileType} from "../../types/types";
 import {AppStateType} from "../../Redux/redux-store";
-import Preloader from "../common/Preloader/Preloader";
+import {Preloader} from "../common/Preloader/Preloader";
 
 type StateToProps = {
     currentUserId: number | null

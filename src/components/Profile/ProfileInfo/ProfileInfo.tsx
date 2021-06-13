@@ -1,11 +1,13 @@
-import React, {ChangeEvent, CSSProperties, FC, useState} from 'react';
-import classes from './ProfileInfo.module.css';
+import React, {FC, useState} from 'react'
 import undefinedAva from '../../../media/user.png'
-import ProfileStatus from "./ProfileStatus/ProfileStatus";
-import {ProfileDataForm} from "./ProfileData/ProfileDataForm";
-import ProfileData from "./ProfileData/ProfileData";
-import {EditProfileDataForm, ProfileType} from "../../../types/types";
-import {Avatar} from "antd";
+import ProfileStatus from "./ProfileStatus/ProfileStatus"
+import {ProfileDataForm} from "./ProfileData/ProfileDataForm"
+import ProfileData from "./ProfileData/ProfileData"
+import {EditProfileDataForm, ProfileType} from "../../../types/types"
+import {Avatar, Button, Card, Upload} from "antd"
+import Meta from "antd/es/card/Meta"
+import {CameraOutlined} from '@ant-design/icons'
+import {RcCustomRequestOptions} from "antd/es/upload/interface";
 
 type Props = {
     profile: ProfileType
@@ -16,40 +18,58 @@ type Props = {
     saveProfileData: (formData: EditProfileDataForm) => any
 }
 
-const ProfileInfo: FC<Props> = ({profile, updateProfileStatus, profileStatus, isOwner, uploadPhoto, saveProfileData}) => {
-    const [editMode, setEditMode] = useState(false);
+const ProfileInfo: FC<Props> = (props) => {
+    const {profile, updateProfileStatus, profileStatus, isOwner, uploadPhoto, saveProfileData} = props
 
-    const onPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
-        const files = e.target.files;
+    const [editMode, setEditMode] = useState(false)
 
-        if (files) {
-            uploadPhoto(files[0]);
-        }
+    const onPhotoSelected = (file: RcCustomRequestOptions) => {
+        uploadPhoto(file.file)
     }
 
     const editModeOn = () => {
-        setEditMode(true);
+        setEditMode(true)
     }
 
     const saveProfile = (formData: EditProfileDataForm) => {
         // todo remove .then
+
         saveProfileData(formData)
             .then(() => {
-                setEditMode(false);
+                setEditMode(false)
             })
     }
 
     const styles = {
-        descriptionBloc: {
+        descriptionBlock: {
             padding: 10
+        },
+        card: {
+            width: 250
         }
     }
 
     return (
-        <div style={styles.descriptionBloc}>
-            <Avatar size={300} src={profile.photos.large || undefinedAva}/>
-
-            {isOwner && <input type={'file'} onChange={onPhotoSelected}/>}
+        <div style={styles.descriptionBlock}>
+            <Card
+                style={styles.card}
+                bordered={true}
+                actions={isOwner ? [
+                    <Upload
+                        listType={'picture'}
+                        showUploadList={false}
+                        type={"select"}
+                        multiple={false}
+                        accept={'.png,.jpeg,.jpg,.svg,.heic'}
+                        customRequest={onPhotoSelected}
+                    >
+                        <Button type={"dashed"} icon={<CameraOutlined/>}/>
+                    </Upload>
+                ] : []}
+            >
+                <Meta avatar={<Avatar size={200} src={profile.photos.large || undefinedAva}/>}
+                />
+            </Card>
 
             {isOwner && editMode
                 ? <ProfileDataForm saveProfile={saveProfile} profile={profile}/>

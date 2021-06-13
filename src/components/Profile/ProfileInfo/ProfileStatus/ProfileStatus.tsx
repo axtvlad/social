@@ -30,7 +30,7 @@ const ProfileStatus: React.FC<Props> = ({profileStatus, updateProfileStatus}) =>
     }
 
     return (
-        <div>
+        <>
             {!editMode &&
             <div>
                 <b>
@@ -51,7 +51,7 @@ const ProfileStatus: React.FC<Props> = ({profileStatus, updateProfileStatus}) =>
                 />
             </div>
             }
-        </div>
+        </>
     )
 }
 
